@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Генератор CV</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Создание резюме</h1>
+    <form id="cvForm">
+      <div class="form-content">
+        <div class="left-side">
+          <label>Имя</label>
+          <input type="text" id="firstName" required>
+
+          <label>Фамилия</label>
+          <input type="text" id="lastName" required>
+
+          <label>Возраст</label>
+          <input type="number" id="age" required>
+
+          <label>Номер телефона</label>
+          <input type="tel" id="phone" required>
+
+          <label>Email</label>
+          <input type="email" id="email" required>
+
+          <label>Навыки (через запятую)</label>
+          <input type="text" id="skills" placeholder="HTML, CSS, JavaScript" required>
+
+          <label>
+            <input type="checkbox" id="noExperience"> Нет опыта
+          </label>
+
+          <div id="experienceSection">
+            <label>Должность</label>
+            <input type="text" id="position">
+
+            <label>Годы работы</label>
+            <input type="text" id="years" placeholder="2020-2023">
+          </div>
+
+          <button type="button" class="generate-btn" id="genDesc">Сгенерировать описание</button>
+
+          <label>Описание</label>
+          <textarea id="about" rows="7" placeholder="Нажмите кнопку выше для автогенерации"></textarea>
+        </div>
+
+        <div class="right-side">
+          <label>Фото 3x4</label>
+          <input type="file" id="photo" accept="image/*">
+          <img id="preview" src="" alt="Превью">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">СГЕНЕРИРОВАТЬ CV</button>
+    </form>
+
+    <div id="output"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

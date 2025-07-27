@@ -1,0 +1,31 @@
+{
+  "name": "cv_creator",
+  "version": "1.0.0",
+  "description": "Website, where you can create your own CV with stylish themes and possibility to use AI to upgrade performance and quality of your CV",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladislavVik1/CV_creator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladislavVik1/CV_creator/issues"
+  },
+  "homepage": "https://github.com/VladislavVik1/CV_creator#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "openai": "^5.10.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

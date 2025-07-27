@@ -1,2 +1,2 @@
 # CV_creator
-Website, where you can make your own CV with stylish themes and proper style with posibility to use AI upgrade perfomance of your CV
+Website, where you can create your own CV with stylish themes and posibility using use AI upgrade perfomance and quality of your CV

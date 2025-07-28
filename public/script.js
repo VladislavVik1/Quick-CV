@@ -2,14 +2,74 @@ const genDescBtn = document.getElementById('genDesc');
 const noExp = document.getElementById('noExperience');
 const experienceSection = document.getElementById('experienceSection');
 
+// Автозаполнение навыков
+const allSkills = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'MongoDB', 'Express', 'Git', 'Figma', 'SASS', 'Webpack'];
+const skillInput = document.getElementById('skillInput');
+const suggestionsList = document.getElementById('suggestions');
+const selectedSkillsContainer = document.getElementById('selectedSkills');
+const hiddenSkills = document.getElementById('skills'); // textarea (скрытая)
+
+let selectedSkills = [];
+
+skillInput.addEventListener('input', () => {
+  const input = skillInput.value.toLowerCase();
+  suggestionsList.innerHTML = '';
+  if (!input) return suggestionsList.classList.add('hidden');
+
+  const filtered = allSkills.filter(skill =>
+    skill.toLowerCase().includes(input) && !selectedSkills.includes(skill)
+  );
+
+  if (filtered.length === 0) {
+    suggestionsList.classList.add('hidden');
+    return;
+  }
+
+  filtered.forEach(skill => {
+    const li = document.createElement('li');
+    li.textContent = skill;
+    li.addEventListener('click', () => {
+      selectedSkills.push(skill);
+      updateSelectedSkills();
+      skillInput.value = '';
+      suggestionsList.classList.add('hidden');
+    });
+    suggestionsList.appendChild(li);
+  });
+
+  suggestionsList.classList.remove('hidden');
+});
+
+function updateSelectedSkills() {
+  selectedSkillsContainer.innerHTML = '';
+  selectedSkills.forEach(skill => {
+    const tag = document.createElement('div');
+    tag.className = 'skill-tag';
+    tag.textContent = skill;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.innerHTML = '×';
+    removeBtn.addEventListener('click', () => {
+      selectedSkills = selectedSkills.filter(s => s !== skill);
+      updateSelectedSkills();
+    });
+
+    tag.appendChild(removeBtn);
+    selectedSkillsContainer.appendChild(tag);
+  });
+
+  hiddenSkills.value = selectedSkills.join(', ');
+}
+
+// Скрытие опыта при выборе галки
 noExp.addEventListener('change', () => {
   experienceSection.style.display = noExp.checked ? 'none' : 'block';
 });
 
+// Генерация описания
 genDescBtn.addEventListener('click', async () => {
   const name = document.getElementById('firstName').value.trim() || 'Кандидат';
-  const skillsRaw = document.getElementById('skills').value;
-  const skills = skillsRaw.split(',').map(s => s.trim()).filter(Boolean);
+  const skills = selectedSkills;
 
   try {
     const response = await fetch('/generate-description', {
@@ -32,4 +92,47 @@ document.getElementById('photo').addEventListener('change', (e) => {
   if (file) {
     document.getElementById('preview').src = URL.createObjectURL(file);
   }
+});
+
+// Отправка формы
+document.getElementById('cvForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const age = document.getElementById('age').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const about = document.getElementById('about').value.trim();
+  const noExp = document.getElementById('noExperience').checked;
+  const position = document.getElementById('position').value.trim();
+  const years = document.getElementById('years').value.trim();
+  const skills = selectedSkills.join(', ');
+
+  const photoFile = document.getElementById('photo').files[0];
+  const photoURL = photoFile ? URL.createObjectURL(photoFile) : '';
+
+  let expText = '';
+  if (!noExp && position && years) {
+    expText = `<p><strong>Опыт:</strong> ${position}, ${years}</p>`;
+  }
+
+  const html = `
+    <div class="cv-preview">
+      <div class="cv-header">
+        <div>
+          <h2>${name} ${lastName}</h2>
+          <p><strong>Возраст:</strong> ${age}</p>
+          <p><strong>Телефон:</strong> ${phone}</p>
+          <p><strong>Email:</strong> ${email}</p>
+        </div>
+        ${photoURL ? `<img src="${photoURL}" alt="Фото" class="cv-photo"/>` : ''}
+      </div>
+      <p><strong>Навыки:</strong> ${skills}</p>
+      ${expText}
+      <p><strong>О себе:</strong> ${about}</p>
+    </div>
+  `;
+
+  document.getElementById('output').innerHTML = html;
 });

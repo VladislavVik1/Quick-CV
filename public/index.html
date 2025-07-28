@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cv-container">
   <form id="cvForm">
     <div class="form-left">
       <input type="text" id="firstName" placeholder="Имя" required />
@@ -13,7 +14,12 @@
       <input type="number" id="age" placeholder="Возраст" required />
       <input type="tel" id="phone" placeholder="Телефон" required />
       <input type="email" id="email" placeholder="Email" required />
-      <textarea id="skills" placeholder="Навыки (HTML, CSS, JavaScript)" required></textarea>
+      <div id="skillsContainer">
+        <input type="text" id="skillInput" placeholder="Введите навык..." autocomplete="off" />
+        <ul id="suggestions" class="hidden"></ul>
+        <div id="selectedSkills"></div>
+      </div>
+      
       
       <label><input type="checkbox" id="noExperience" /> Нет опыта</label>
       <div id="experienceSection">
@@ -21,7 +27,7 @@
         <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
       </div>
 
-      <button type="button" id="genDesc">Сгенерировать описание</button>
+      <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 30 секунд)</button>
       <textarea id="about" placeholder="О себе" rows="6"></textarea>
       <button type="submit" class="submit-btn">СГЕНЕРИРОВАТЬ CV</button>
     </div>
@@ -34,7 +40,7 @@
   </form>
 
   <div id="output"></div>
-
+</div>
   <script src="script.js"></script>
 </body>
 </html>

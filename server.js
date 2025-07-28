@@ -1,41 +1,53 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
-const OpenAI = require('openai');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { OpenAI } from 'openai';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const app = express();
-const PORT = 3000;
-
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const publicPath = path.join(__dirname, 'public');
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(publicPath));
 
 app.post('/generate-description', async (req, res) => {
   const { name, skills } = req.body;
-  const skillStr = skills.join(', ') || 'веб-технологиям';
-  const prompt = `Напиши профессиональное описание для резюме человека по имени ${name}, который владеет навыками: ${skillStr}. Длина текста — минимум 700 символов.`;
+  const skillStr = skills.join(', ') || 'веб-технологиями';
+
+  const prompt = `
+Ты — помощник по написанию резюме. Сгенерируй 1 связный, живой текст для раздела "О себе".
+
+Требования:
+- Язык: такой, на каком пишет пользователь (русский или английский)
+- От первого лица (например: "Я умею...", "Мне нравится...")
+- Используй имя: ${name}
+- Упомяни навыки: ${skillStr}
+- Длина: минимум 300 символов
+- Без сухих списков и перечислений, только естественный связный рассказ как для CV.
+`;
 
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }]
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.8
     });
 
-    res.json({ description: completion.choices[0].message.content });
+    const description = completion.choices[0].message.content.trim();
+    res.json({ description });
+
   } catch (error) {
     console.error('OpenAI error:', error);
-    res.status(500).json({ error: 'Ошибка генерации.' });
+    res.status(500).json({ error: 'Ошибка генерации описаний.' });
   }
 });
 
-const indexPath = path.join(__dirname, 'public', 'index.html');
-app.get('/', (req, res) => res.sendFile(indexPath));
-app.get('/index.html', (req, res) => res.sendFile(indexPath));
-
-app.listen(PORT, () => {
-  console.log(`✅ Сервер запущен на http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));

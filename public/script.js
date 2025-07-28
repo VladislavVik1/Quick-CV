@@ -3,7 +3,60 @@ const noExp = document.getElementById('noExperience');
 const experienceSection = document.getElementById('experienceSection');
 
 // Автозаполнение навыков
-const allSkills = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'MongoDB', 'Express', 'Git', 'Figma', 'SASS', 'Webpack'];
+const allSkills = [
+  // Frontend
+  'HTML', 'HTML5',
+  'CSS', 'CSS3', 'SASS', 'SCSS', 'LESS',
+  'JavaScript', 'TypeScript',
+  'React', 'Redux', 'Redux Toolkit', 'React Router', 'Next.js',
+  'Vue.js', 'Nuxt.js',
+  'Angular',
+  'Bootstrap', 'Tailwind CSS', 'Material UI',
+  'Styled Components',
+  'Jest', 'React Testing Library',
+  'Vite', 'Webpack', 'Parcel', 'Gulp',
+  'Babel', 'ESLint', 'Prettier',
+
+  // Backend
+  'Node.js', 'Express', 'NestJS',
+  'MongoDB', 'Mongoose',
+  'PostgreSQL', 'MySQL', 'Sequelize',
+  'Prisma',
+  'REST API', 'GraphQL', 'Apollo Server',
+  'Socket.IO',
+  'JWT', 'OAuth2.0', 'Passport.js',
+  'Zod', 'Yup', 'Joi',
+
+  // DevOps / Tools
+  'Git', 'GitHub', 'GitLab', 'Bitbucket',
+  'Docker', 'Docker Compose',
+  'CI/CD', 'GitHub Actions',
+  'Nginx',
+  'Linux', 'Bash',
+  'Vercel', 'Netlify', 'Render', 'Heroku',
+
+  // UI/UX
+  'Figma', 'Adobe XD', 'Photoshop',
+  'Responsive Design', 'Pixel Perfect',
+  'Accessibility (a11y)', 'BEM',
+
+  // Testing
+  'Jest', 'Mocha', 'Chai', 'Cypress', 'Playwright',
+
+  // Other
+  'Agile', 'Scrum', 'Kanban',
+  'English B2', 'English C1', 'Teamwork', 'Problem Solving',
+  'ChatGPT', 'Prompt Engineering',
+  'Trello', 'Jira', 'Notion',
+
+  // Optional extras
+  'Three.js', 'Canvas API', 'WebGL',
+  'Service Workers', 'PWA',
+  'WebSockets', 'SSR', 'CSR', 'ISR',
+
+  // Soft skills 
+  'Adaptability', 'Communication', 'Time Management'
+];
 const skillInput = document.getElementById('skillInput');
 const suggestionsList = document.getElementById('suggestions');
 const selectedSkillsContainer = document.getElementById('selectedSkills');

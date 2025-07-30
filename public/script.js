@@ -189,3 +189,29 @@ document.getElementById('cvForm').addEventListener('submit', function (e) {
 
   document.getElementById('output').innerHTML = html;
 });
+// Отправка на сервер для сохранения в MongoDB
+fetch('/api/cv', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name,
+    lastName,
+    age,
+    phone,
+    email,
+    about,
+    skills: selectedSkills,
+    position,
+    years,
+    noExperience: noExp
+  })
+})
+.then(res => res.json())
+.then(data => {
+  console.log('✅ Резюме успешно отправлено:', data);
+})
+.catch(err => {
+  console.error('❌ Ошибка при сохранении резюме:', err);
+});

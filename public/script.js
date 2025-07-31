@@ -2,6 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const genDescBtn = document.getElementById('genDesc');
   const noExp = document.getElementById('noExperience');
   const experienceSection = document.getElementById('experienceSection');
+  const courseExp = document.getElementById('courseExperience');
+  const coursesSection = document.getElementById('coursesSection');
+  function updateExperienceDisplay() {
+    const noChecked = noExp.checked;
+    const courseChecked = courseExp.checked;
+
+    if (noChecked) courseExp.checked = false;
+    if (courseChecked) noExp.checked = false;
+
+    experienceSection.style.display = (!noChecked && !courseChecked) ? 'block' : 'none';
+    coursesSection.style.display = courseChecked ? 'block' : 'none';
+  }
+
+  noExp.addEventListener('change', updateExperienceDisplay);
+  courseExp.addEventListener('change', updateExperienceDisplay);
+  updateExperienceDisplay();
   const skillInput = document.getElementById('skillInput');
   const suggestionsList = document.getElementById('suggestions');
   const selectedSkillsContainer = document.getElementById('selectedSkills');
@@ -58,12 +74,48 @@ document.addEventListener('DOMContentLoaded', () => {
     'Service Workers', 'PWA',
     'WebSockets', 'SSR', 'CSR', 'ISR',
   
-    // Soft skills 
-    'Adaptability', 'Communication', 'Time Management'
+    // Профессиональные навыки
+    'Adaptability', 'Communication', 'Time Management',
+     
+    // Менеджеры
+  'Project Management', 'Team Leadership', 'Strategic Planning',
+  'Budgeting', 'Risk Management', 'Recruitment', 'Mentoring',
+  'Conflict Resolution', 'Business Development',
+
+  // Риелтор
+  'Real Estate Sales', 'Property Valuation', 'Client Negotiation',
+  'CRM Systems', 'Contract Review', 'Market Analysis',
+  'Mortgage Consulting', 'Showing Properties',
+
+  //Финансы
+  '1C:Accounting', 'Tax Reporting', 'Financial Planning',
+  'Management Accounting', 'Audit', 'Banking Operations',
+  'Cash Handling', 'Cost Optimization',
+
+  // Маркетинг
+  'SEO', 'SMM', 'Email Marketing', 'Content Marketing',
+  'Google Ads', 'Meta Ads', 'Presentation Skills',
+  'Cold Calling', 'Sales Funnel Analysis', 'AmoCRM', 'Bitrix24',
+
+  // Логистика
+  'Supply Chain Management', 'Inventory Control', 'Route Optimization',
+  'Customs Documentation', 'WMS Systems', 'International Logistics',
+
+  // Медицина
+  'Patient Care', 'Medical Documentation', 'First Aid',
+  'Diagnosis', 'Medical Examinations', 'MIS (Medical Info Systems)',
+
+  // Учителя
+  'Teaching', 'Curriculum Development', 'Online Teaching',
+  'Knowledge Assessment', 'LMS Systems', 'Mentoring Students',
+
+  // Офисные навыки
+  'MS Word', 'MS Excel', 'Google Docs', 'Office Administration',
+  'Scheduling', 'Document Management', 'Business Correspondence'
+
   ];
   let selectedSkills = [];
 
-  // Автозаповнення навичок
   skillInput.addEventListener('input', () => {
     const input = skillInput.value.toLowerCase();
     suggestionsList.innerHTML = '';
@@ -109,22 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Показ/приховування досвіду
   noExp.addEventListener('change', () => {
     experienceSection.style.display = noExp.checked ? 'none' : 'block';
   });
 
-  // Генерація опису
   genDescBtn.addEventListener('click', async () => {
     const name = document.getElementById('firstName')?.value.trim() || 'Кандидат';
-
+    const specialty = document.getElementById('specialty')?.value.trim() || 'специалист';
+  
     try {
       const response = await fetch('/generate-description', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, skills: selectedSkills })
+        body: JSON.stringify({
+          name,
+          skills: selectedSkills,
+          specialty
+        })
       });
-
+  
       const result = await response.json();
       document.getElementById('about').value = result.description || 'Ошибка генерации описания.';
     } catch (error) {
@@ -132,8 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('about').value = 'Ошибка генерации описания.';
     }
   });
+  
 
-  // Превью фото
   document.getElementById('photo')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -141,23 +196,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Обработка отправки формы
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+  
+    const errors = [];
+  
     const name = document.getElementById('firstName')?.value.trim();
     const lastName = document.getElementById('lastName')?.value.trim();
     const age = document.getElementById('age')?.value.trim();
     const phone = document.getElementById('phone')?.value.trim();
     const email = document.getElementById('email')?.value.trim();
+    const github = document.getElementById('github')?.value.trim();
+    const city = document.getElementById('city')?.value.trim();
+    const languages = document.getElementById('languages')?.value.trim();
+    const education = document.getElementById('education')?.value.trim();
+    const hobbies = document.getElementById('hobbies')?.value.trim();
     const about = document.getElementById('about')?.value.trim();
     const position = document.getElementById('position')?.value.trim();
     const years = document.getElementById('years')?.value.trim();
-    const noExperience = noExp?.checked;
-
+    const noExperience = document.getElementById('noExperience')?.checked;
+    const courseExperience = document.getElementById('courseExperience')?.checked;
+    const courses = document.getElementById('courses')?.value.trim();
+  
     const photoFile = document.getElementById('photo')?.files[0];
     const photoURL = photoFile ? URL.createObjectURL(photoFile) : '';
-
+  
+    if (!name) errors.push('Имя');
+    if (!lastName) errors.push('Фамилия');
+    if (!age) errors.push('Возраст');
+    if (!phone) errors.push('Телефон');
+    if (!email) errors.push('Email');
+    if (!github) errors.push('GitHub');
+    if (!city) errors.push('Город');
+    if (!languages) errors.push('Языки');
+    if (selectedSkills.length < 1) errors.push('Навыки');
+  
+    const hasExperience =
+      (!noExperience && !courseExperience && position && years) ||
+      noExperience ||
+      courseExperience;
+  
+    if (!hasExperience) errors.push('Опыт работы (или отметьте соответствующую галочку)');
+    if (courseExperience && !courses) errors.push('Укажите, какие курсы вы прошли');
+  
+    if (!education) errors.push('Образование');
+    if (!hobbies) errors.push('Хобби');
+    if (!about) errors.push('О себе');
+    if (!photoFile) errors.push('Фото');
+  
+    if (errors.length > 0) {
+      alert(`❌ Пожалуйста, заполните следующие поля:\n- ${errors.join('\n- ')}`);
+      return;
+    }
+  
     const html = `
       <div class="cv-preview">
         <div class="cv-header">
@@ -169,14 +260,23 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           ${photoURL ? `<img src="${photoURL}" alt="Фото" class="cv-photo"/>` : ''}
         </div>
+        <p><strong>Город:</strong> ${city}</p>
+        <p><strong>Языки:</strong> ${languages}</p>
         <p><strong>Навыки:</strong> ${selectedSkills.join(', ')}</p>
-        ${!noExperience && position && years ? `<p><strong>Опыт:</strong> ${position}, ${years}</p>` : ''}
+        ${
+          noExperience
+            ? '<p><strong>Опыт:</strong> Нет опыта</p>'
+            : courseExperience
+            ? `<p><strong>Опыт:</strong> Нет опыта, но проходил(а) курсы: ${courses}</p>`
+            : `<p><strong>Опыт:</strong> ${position}, ${years}</p>`
+        }
+        <p><strong>Образование:</strong> ${education}</p>
+        <p><strong>Хобби:</strong> ${hobbies}</p>
         <p><strong>О себе:</strong> ${about}</p>
       </div>
     `;
     document.getElementById('output').innerHTML = html;
-
-    // Отправка на сервер
+  
     try {
       const res = await fetch('/api/cv', {
         method: 'POST',
@@ -187,23 +287,31 @@ document.addEventListener('DOMContentLoaded', () => {
           age,
           phone,
           email,
+          github,
+          city,
+          languages,
+          education,
+          hobbies,
           about,
           skills: selectedSkills,
+          photo: photoURL,
+          noExperience,
+          courseExperience,
+          courses,
           position,
-          years,
-          noExperience
+          years
         })
       });
-
+  
       const data = await res.json();
       if (res.ok) {
         console.log('✅ Резюме успешно отправлено:', data);
       } else {
-        console.error('❌ Ошибка при сохранении:', data);
-        alert(data?.error || 'Ошибка при сохранении');
+        alert(data?.error || '❌ Ошибка при сохранении');
       }
     } catch (err) {
-      console.error('❌ Ошибка при отправке запроса:', err);
+      console.error('❌ Ошибка при отправке:', err);
+      alert('Ошибка соединения с сервером');
     }
   });
 });

@@ -15,21 +15,44 @@
       <input type="number" id="age" placeholder="Возраст" required />
       <input type="tel" id="phone" placeholder="Телефон" required />
       <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="github" placeholder="Профиль GitHub" />
+      <input type="text" id="linkedin" placeholder="Профиль LinkedIn (необязательно)" />
+      <input type="text" id="telegram" placeholder="Профиль Telegram (необязательно)" />
+      <input type="text" id="city" placeholder="Страна и Город" required />
+      <input type="text" id="portfolio" placeholder="Портфолио (необязательно)" />
+      <input type="text" id="languages" placeholder="Языки (например: Русский, Украинский, Английский)" />
+      <input type="text" id="specialty" placeholder="Профессия (например: Риелтор, Бухгалтер, Учитель)" required />
+
+
+      
       <div id="skillsContainer">
-        <input type="text" id="skillInput" placeholder="Введите навык..." autocomplete="off" />
+        <input type="text" id="skillInput" placeholder="Выберите навыки из списка..." autocomplete="off" />
         <ul id="suggestions" class="hidden"></ul>
         <div id="selectedSkills"></div>
       </div>
+
+      <div id="experienceOptions">
+        <label><input type="checkbox" id="noExperience" /> Нет опыта</label><br />
+        <label><input type="checkbox" id="courseExperience" /> Нет опыта, но проходил(ла) курсы</label>
+      </div>
       
-      
-      <label><input type="checkbox" id="noExperience" /> Нет опыта</label>
       <div id="experienceSection">
-        <input type="text" id="position" placeholder="Должность" />
+        <input type="text" id="position" placeholder="Прошлое место работы" />
         <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
       </div>
+      
+      <div id="coursesSection" style="display: none;">
+        <input type="text" id="courses" placeholder="Какие курсы вы прошли (например: GoIT Fullstack, Hilel Frontend)" />
+      </div>
 
-      <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 30 секунд)</button>
+      <input type="text" id="education" placeholder="Образование (например: НУ 'Львівська політехніка, закончил в 2015 году. Высшее')" />
+
+      <input
+      type="text" id="hobbies" placeholder="Хобби (например: чтение, спорт, путешествия)" />
+
+      <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 10 секунд)</button>
       <textarea id="about" placeholder="О себе" rows="6"></textarea>
+
       <button type="submit" class="submit-btn">СГЕНЕРИРОВАТЬ CV</button>
     </div>
 
@@ -43,10 +66,11 @@
   <div id="output"></div>
   <button id="downloadPDF" class="download-btn">Завантажити PDF</button>
 </div>
-  <script src="script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="/pdf/generate-pdf.js"></script>
+
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="./pdf/generate-pdf.js"></script>
 
 </body>
 </html>

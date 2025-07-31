@@ -28,14 +28,12 @@ const startServer = async () => {
     await mongoose.connect('mongodb+srv://CvAdmin:Quickcvadmin@cluster0.t7x7ove.mongodb.net/quickcv');
     console.log('✅ MongoDB connected');
 
-    // витяг ключа з MongoDB
     const keyRecord = await Setting.findOne({ key: 'OPENAI_API_KEY' });
     if (!keyRecord) throw new Error('❌ OPENAI_API_KEY не знайдено в MongoDB');
     console.log('🔑 OPENAI_API_KEY успешно загружен из MongoDB');
 
     const openai = new OpenAI({ apiKey: keyRecord.value });
 
-    // маршрут збереження резюме
     app.post('/api/cv', async (req, res) => {
       try {
         const cv = new CV(req.body);
@@ -47,17 +45,23 @@ const startServer = async () => {
       }
     });
 
-    // маршрут генерації опису
     app.post('/generate-description', async (req, res) => {
-      const { name, skills } = req.body;
-      const skillStr = (skills && skills.length > 0) ? skills.join(', ') : 'веб-технологиями';
-
+      const { name, skills, specialty } = req.body;
+    
+      const skillStr = (skills && skills.length > 0) ? skills.join(', ') : 'без указанных навыков';
+      const profStr = specialty || 'специалист';
+    
       const prompt = `
-Ты — помощник по написанию резюме. Сгенерируй 1 связный, живой текст для раздела "О себе" для IT компаний.
-
-Составь короткий текст минимум 300, максимум 500 символов "О себе" для IT-резюме на русском. Имя: ${name}. Навыки: ${skillStr}.
-`;
-
+    Ты — помощник по написанию резюме. Сгенерируй связный, живой текст для раздела "О себе".
+    
+    Составь короткий текст (300–500 символов) для резюме на русском языке. 
+    Укажи сильные стороны, но не перечисляй дословно "навыки", а используй их смысл.
+    
+    Имя: ${name}
+    Профессия: ${profStr}
+    Навыки: ${skillStr}
+      `;
+    
       try {
         const completion = await openai.chat.completions.create({
           model: 'gpt-4o',
@@ -65,7 +69,7 @@ const startServer = async () => {
           temperature: 0.8,
           max_tokens: 400
         });
-
+    
         const description = completion.choices[0].message.content.trim();
         res.json({ description });
       } catch (error) {

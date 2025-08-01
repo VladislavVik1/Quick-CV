@@ -1,3 +1,4 @@
+/* === Загальне оформлення === */
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
@@ -5,6 +6,31 @@ body {
   margin: 0;
 }
 
+/* === Обгортки A4 === */
+.a4-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.cv-form-wrapper,
+.cv-preview-wrapper {
+  flex: 1;
+  height: 297mm;
+  max-height: 297mm;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+
+/* === Форма === */
 form {
   display: flex;
   justify-content: space-between;
@@ -32,16 +58,9 @@ textarea {
   border-radius: 10px;
 }
 
-.submit-btn,
-#genDesc {
-  padding: 16px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background-color: #007bff;
-  color: #fff;
-  width: 100%;
-  cursor: pointer;
+#about {
+  resize: none;
+  height: 200px;
 }
 
 #experienceSection {
@@ -64,42 +83,7 @@ textarea {
   border: 2px solid #ccc;
 }
 
-
-.cv-preview {
-  border: 2px solid #ddd;
-  padding: 20px;
-  margin-top: 40px;
-  border-radius: 16px;
-  background-color: #f9f9f9;
-  max-width: 800px;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.cv-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.cv-photo {
-  width: 150px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-left: 20px;
-}
-
-.cv-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-}
-#about {
-  resize: none;
-  height: 200px;
-}
+/* === Навички === */
 #skillsContainer {
   position: relative;
   display: flex;
@@ -167,7 +151,20 @@ textarea {
   margin-left: 8px;
   cursor: pointer;
 }
-/* ✅ Кнопка Завантажити PDF */
+
+/* === Кнопки === */
+.submit-btn,
+#genDesc {
+  padding: 16px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: #fff;
+  width: 100%;
+  cursor: pointer;
+}
+
 .download-btn {
   margin-top: 20px;
   padding: 12px 24px;
@@ -184,17 +181,114 @@ textarea {
   background-color: #218838;
 }
 
-/* ✅ Стиль абзаців у резюме (вік, телефон, імейл тощо) */
-.cv-preview p {
-  margin: 1px 0;
-  line-height: 1.3;
-  word-break: break-word;
-  white-space: pre-wrap;
+.cv-download-btn-wrapper {
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* ✅ Забезпечення переносу слів навіть у вузькому вікні або PDF */
-.cv-preview {
+/* === Live Preview === */
+.cv-live-preview {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 2px dashed #ccc;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cv-preview-output {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 400px;
+  font-size: 16px;
+  line-height: 1.5;
   word-break: break-word;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* === Header + Фото === */
+.cv-header {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.cv-photo {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+}
+
+/* === Текст у preview === */
+.cv-preview-output p {
+  margin: 1px 0;
+  line-height: 1.3;
+}
+
+/* === Toolbar редактора === */
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.editor-toolbar select,
+.editor-toolbar input[type="color"] {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.editor-toolbar button {
+  padding: 6px 12px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.editor-toolbar button:hover {
+  background-color: #e0e0e0;
+}
+
+/* === Editable поля === */
+.cv-preview-output [contenteditable="true"] {
+  outline: none;
+  cursor: text;
+  padding: 1px 2px;
+  border-radius: 4px;
+}
+
+.cv-preview-output [contenteditable="true"]:focus {
+  background-color: #fffbe5;
+  border-bottom: 1px dashed #999;
+}
+.cv-preview-output h2 {
+  margin: 0 0 4px 0; /* Убираем верхний отступ, оставляем маленький нижний */
+  font-size: 22px;    /* (опционально) уменьшить размер */
+  line-height: 1.2;   /* (опционально) уменьшить высоту строки */
+}
+
+.cv-photo-fixed {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ccc;
 }

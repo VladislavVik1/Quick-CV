@@ -7,7 +7,8 @@
 </head>
 <body>
   <a href="./pages/First_page.html">Первая страница</a>
-  <div class="cv-container">
+  <div class="a4-wrapper">
+  <div class="cv-form-wrapper">
   <form id="cvForm">
     <div class="form-left">
       <input type="text" id="firstName" placeholder="Имя" required />
@@ -52,8 +53,6 @@
 
       <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 10 секунд)</button>
       <textarea id="about" placeholder="О себе" rows="6"></textarea>
-
-      <button type="submit" class="submit-btn">СГЕНЕРИРОВАТЬ CV</button>
     </div>
 
     <div class="form-right">
@@ -62,12 +61,57 @@
       <img id="preview" src="" alt="Preview" />
     </div>
   </form>
+  <div class="cv-live-preview">
+    <div class="editor-toolbar">
+      <label>Шрифт:
+        <select id="fontSelect">
+          <option value="Arial">Arial</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+        </select>
+      </label>
+      <button type="button" onclick="document.execCommand('bold')">B</button>
+      <button type="button" onclick="document.execCommand('italic')"><i>I</i></button>
+      <input type="color" id="colorPicker" title="Цвет текста" />
+    </div>
+  
+    <div id="livePreview" class="cv-preview-output">
+  <div class="cv-header">
+    <div class="cv-header-content">
+      <h2><span id="liveName" contenteditable="true">Имя Фамилия</span></h2>
+      <p><strong>Возраст:</strong> <span id="liveAge" contenteditable="true">—</span></p>
+      <p><strong>Телефон:</strong> <span id="livePhone" contenteditable="true">—</span></p>
+      <p><strong>Email:</strong> <span id="liveEmail" contenteditable="true">—</span></p>
+      <p><strong>GitHub:</strong> <span id="liveGithub" contenteditable="true">—</span></p>
+      <p><strong>LinkedIn:</strong> <span id="liveLinkedin" contenteditable="true">—</span></p>
+      <p><strong>Telegram:</strong> <span id="liveTelegram" contenteditable="true">—</span></p>
+      <p><strong>Город:</strong> <span id="liveCity" contenteditable="true">—</span></p>
+      <p><strong>Портфолио:</strong> <span id="livePortfolio" contenteditable="true">—</span></p>
+      <p><strong>Языки:</strong> <span id="liveLanguages" contenteditable="true">—</span></p>
+      <p><strong>Профессия:</strong> <span id="liveSpecialty" contenteditable="true">—</span></p>
+      <p><strong>Навыки:</strong> <span id="liveSkills" contenteditable="true">—</span></p>
+      <p><strong>Опыт:</strong> <span id="liveExperience" contenteditable="true">—</span></p>
+      <p><strong>Курсы:</strong> <span id="liveCourses" contenteditable="true">—</span></p>
+      <p><strong>Образование:</strong> <span id="liveEducation" contenteditable="true">—</span></p>
+      <p><strong>Хобби:</strong> <span id="liveHobbies" contenteditable="true">—</span></p>
+      <p><strong>О себе:</strong> <span id="liveAbout" contenteditable="true">—</span></p>
+    </div>
+    <img id="livePhoto" src="" alt="Фото" class="cv-photo-fixed" />
+  </div>
+</div>
+  </div>
+  <div class="cv-download-btn-wrapper">
+    <button id="downloadLivePDF" class="download-btn">СОХРАНИТЬ В PDF</button>
+  </div>
+
 
   <div id="output"></div>
-  <button id="downloadPDF" class="download-btn">Завантажити PDF</button>
+</div>
 </div>
 
 <script src="script.js"></script>
+<script src="./scripts/live-preview.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="./pdf/generate-pdf.js"></script>

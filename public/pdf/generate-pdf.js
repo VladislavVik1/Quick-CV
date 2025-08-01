@@ -1,48 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const downloadBtn = document.getElementById('downloadPDF');
-  if (!downloadBtn) return;
+  const btn = document.getElementById('downloadLivePDF');
+  const target = document.getElementById('livePreview');
 
-  downloadBtn.addEventListener('click', async () => {
-    const element = document.querySelector('.cv-preview');
-    if (!element) {
-      alert('Сначала згенерируй резюме.');
-      return;
-    }
+  if (btn && target) {
+    btn.addEventListener('click', async () => {
+      const wasEditable = target.getAttribute('contenteditable');
+      target.removeAttribute('contenteditable');
 
-    const { jsPDF } = window.jspdf; // 
+      const canvas = await html2canvas(target, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#fff',
+        windowWidth: target.scrollWidth,
+      });
 
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true
-    });
+      const imgData = canvas.toDataURL('image/png');
 
-    const imgData = canvas.toDataURL('image/jpeg', 1.0);
-    const pdf = new jsPDF('p', 'mm', 'a4');
+      // Используем глобальный объект jspdf
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('cv-preview.pdf');
 
-    const imgProps = {
-      width: canvas.width,
-      height: canvas.height
-    };
-
-    const ratio = imgProps.width / imgProps.height;
-    const pdfImgWidth = pdfWidth;
-    const pdfImgHeight = pdfImgWidth / ratio;
-
-    let position = 0;
-    let heightLeft = pdfImgHeight;
-
-    while (heightLeft > 0) {
-      pdf.addImage(imgData, 'JPEG', 0, position, pdfImgWidth, pdfImgHeight);
-      heightLeft -= pdfHeight;
-      if (heightLeft > 0) {
-        pdf.addPage();
+      if (wasEditable !== null) {
+        target.setAttribute('contenteditable', wasEditable);
       }
-    }
-
-    pdf.save('my-cv.pdf');
-  });
+    });
+  }
 });

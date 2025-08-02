@@ -23,6 +23,19 @@ const translations = {
       downloadPDF: "СОХРАНИТЬ В PDF",
       noExperience: "Нет опыта",
       courseExperience: "Нет, но проходил(ла) курсы",
+      previewAge: "Возраст",
+      previewPhone: "Телефон",
+      previewEmail: "Email",
+      previewCity: "Город",
+      previewLanguages: "Языки",
+      previewSkills: "Навыки",
+      previewExperience: "Опыт",
+      previewEducation: "Образование",
+      previewHobbies: "Хобби",
+      previewAbout: "О себе",
+      previewNoExp: "Нет опыта",
+      previewCoursesExp: "Нет опыта, но проходил(ла) курсы"
+
     },
     uk: {
       firstName: "Ім’я",
@@ -48,6 +61,18 @@ const translations = {
       downloadPDF: "ЗБЕРЕГТИ У PDF",
       noExperience: "Немає досвіду",
       courseExperience: "Немає, але проходив(ла) курси",
+      previewAge: "Вік",
+      previewPhone: "Телефон",
+      previewEmail: "Email",
+      previewCity: "Місто",
+      previewLanguages: "Мови",
+      previewSkills: "Навички",
+      previewExperience: "Досвід",
+      previewEducation: "Освіта",
+      previewHobbies: "Хобі",
+      previewAbout: "Про себе",
+      previewNoExp: "Немає досвіду",
+      previewCoursesExp: "Немає досвіду, але проходив(ла) курси"
     },
     en: {
       firstName: "First Name",
@@ -73,13 +98,24 @@ const translations = {
       downloadPDF: "SAVE TO PDF",
       noExperience: "No experience",
       courseExperience: "No, but took courses",
+      previewAge: "Age",
+      previewPhone: "Phone",
+      previewEmail: "Email",
+      previewCity: "City",
+      previewLanguages: "Languages",
+      previewSkills: "Skills",
+      previewExperience: "Experience",
+      previewEducation: "Education",
+      previewHobbies: "Hobbies",
+      previewAbout: "About Me",
+      previewNoExp: "No experience",
+      previewCoursesExp: "No experience, but took courses"
     }
   };
   
   function applyTranslations() {
     const lang = localStorage.getItem('language') || 'ru';
     const t = translations[lang];
-  
     if (!t) return;
   
     const setValue = (id, text) => {
@@ -93,6 +129,7 @@ const translations = {
       }
     };
   
+    // Основные поля
     setValue("firstName", t.firstName);
     setValue("lastName", t.lastName);
     setValue("age", t.age);
@@ -115,12 +152,14 @@ const translations = {
     setValue("about", t.about);
     setValue("downloadLivePDF", t.downloadPDF);
   
-    // Переводим текст чекбоксов
-    const noExpLabel = document.querySelector('label[for="noExperience"]') || document.querySelector('#noExperience')?.parentElement;
-    const courseExpLabel = document.querySelector('label[for="courseExperience"]') || document.querySelector('#courseExperience')?.parentElement;
+    // Переводим текст в чекбоксах через <span>
+    const noExpLabel = document.querySelector('label[for="noExperience"]');
+    const courseExpLabel = document.querySelector('label[for="courseExperience"]');
+    const noExpSpan = noExpLabel?.querySelector('span');
+    const courseExpSpan = courseExpLabel?.querySelector('span');
   
-    if (noExpLabel) noExpLabel.innerText = t.noExperience;
-    if (courseExpLabel) courseExpLabel.innerText = t.courseExperience;
+    if (noExpSpan) noExpSpan.textContent = t.noExperience;
+    if (courseExpSpan) courseExpSpan.textContent = t.courseExperience;
   }
   
   // Применяем сразу при загрузке страницы

@@ -12,10 +12,12 @@
 <body>
   <div id="languageModal" class="language-modal">
     <div class="language-content">
-      <h2>Выберите язык / Select language / Оберіть мову</h2>
-      <button data-lang="ru">Русский</button>
+      <h2>Оберіть мову / Select language / Выберите язык </h2>
       <button data-lang="uk">Українська</button>
+      <button data-lang="ru">Русский</button>
       <button data-lang="en">English</button>
+      <p>At this language we generate CV</p>
+      <p>На этом языке мы будем генерировать CV</p>
     </div>
   </div>
   
@@ -43,8 +45,14 @@
           </div>
 
           <div id="experienceOptions">
-            <label><input type="checkbox" id="noExperience" /> Нет опыта</label><br />
-            <label><input type="checkbox" id="courseExperience" /> Нет, но проходил(ла) курсы</label>
+            <label for="noExperience">
+              <input type="checkbox" id="noExperience" />
+              <span>Нет опыта</span>
+            </label><br />
+            <label for="courseExperience">
+              <input type="checkbox" id="courseExperience" />
+              <span>Нет, но проходил(ла) курсы</span>
+            </label>
           </div>
 
           <div id="experienceSection">
@@ -73,13 +81,13 @@
     <!-- Правая колонка: Превью -->
     <div class="cv-preview-wrapper">
       <div class="template-selector">
-        <button data-template="modern">Современный</button>
-        <button data-template="dark">Темный</button>
-        <button data-template="strict">Строгий</button>
+        <button data-template="modern">Modern</button>
+        <button data-template="dark">Dark</button>
+        <button data-template="strict">Strong</button>
       </div>
       <div class="cv-live-preview">
         <div class="editor-toolbar">
-          <label>Шрифт:
+          <label>Style:
             <select id="fontSelect">
               <option value="Arial">Arial</option>
               <option value="Georgia">Georgia</option>
@@ -96,22 +104,22 @@
           <div class="cv-header">
             <div class="cv-header-content">
               <h2><span id="liveName" contenteditable="true">Имя Фамилия</span></h2>
-              <p><strong>Возраст:</strong> <span id="liveAge" contenteditable="true">—</span></p>
-              <p><strong>Телефон:</strong> <span id="livePhone" contenteditable="true">—</span></p>
-              <p><strong>Email:</strong> <span id="liveEmail" contenteditable="true">—</span></p>
-              <p><strong>GitHub:</strong> <span id="liveGithub" contenteditable="true">—</span></p>
-              <p><strong>LinkedIn:</strong> <span id="liveLinkedin" contenteditable="true">—</span></p>
-              <p><strong>Telegram:</strong> <span id="liveTelegram" contenteditable="true">—</span></p>
-              <p><strong>Город:</strong> <span id="liveCity" contenteditable="true">—</span></p>
-              <p><strong>Портфолио:</strong> <span id="livePortfolio" contenteditable="true">—</span></p>
-              <p><strong>Языки:</strong> <span id="liveLanguages" contenteditable="true">—</span></p>
-              <p><strong>Профессия:</strong> <span id="liveSpecialty" contenteditable="true">—</span></p>
-              <p><strong>Навыки:</strong> <span id="liveSkills" contenteditable="true">—</span></p>
-              <p><strong>Опыт:</strong> <span id="liveExperience" contenteditable="true">—</span></p>
-              <p><strong>Курсы:</strong> <span id="liveCourses" contenteditable="true">—</span></p>
-              <p><strong>Образование:</strong> <span id="liveEducation" contenteditable="true">—</span></p>
-              <p><strong>Хобби:</strong> <span id="liveHobbies" contenteditable="true">—</span></p>
-              <p><strong>О себе:</strong> <span id="liveAbout" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveAge" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="livePhone" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveEmail" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveGithub" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveLinkedin" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveTelegram" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveCity" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="livePortfolio" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveLanguages" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveSpecialty" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveSkills" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveExperience" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveCourses" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveEducation" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveHobbies" contenteditable="true">—</span></p>
+              <p><strong></strong> <span id="liveAbout" contenteditable="true">—</span></p>
             </div>
             <img id="livePhoto" src="" alt="Фото" class="cv-photo-fixed" />
           </div>

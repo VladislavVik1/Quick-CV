@@ -3,7 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import axios from 'axios';
+import OpenAI from 'openai'; 
 
 import CV from './models/Cv.js';
 import Setting from './models/Setting.js';
@@ -13,10 +13,11 @@ const __dirname = path.dirname(__filename);
 const publicPath = path.join(__dirname, 'public');
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static(publicPath));
+
+let openai; // объявляем глобально
 
 const startServer = async () => {
   try {
@@ -25,11 +26,12 @@ const startServer = async () => {
 
     const keyRecord = await Setting.findOne({ key: 'OPENAI_API_KEY' });
     if (!keyRecord) throw new Error('❌ OPENAI_API_KEY не знайдено в MongoDB');
+    const openaiKey = keyRecord.value;
     console.log('🔑 OPENAI_API_KEY успешно загружен из MongoDB');
 
-    const openai = new OpenAI({ apiKey: keyRecord.value });
+    openai = new OpenAI({ apiKey: openaiKey });
 
-    // ✅ Збереження CV
+    // Сохранение CV
     app.post('/api/cv', async (req, res) => {
       try {
         const cv = new CV(req.body);
@@ -41,7 +43,6 @@ const startServer = async () => {
       }
     });
 
-    // ✅ Генерація опису
     app.post('/generate-description', async (req, res) => {
       try {
         const {
@@ -51,49 +52,40 @@ const startServer = async () => {
           hobbies = '',
           language = 'ru'
         } = req.body;
-    
-        const skillStr = skills.length ? skills.join(', ') : 'without specific skills';
-        const hobbyStr = hobbies || 'no hobbies';
-    
+
+        const skillStr = skills.length ? skills.join(', ') : 'без конкретных навыков';
+        const hobbyStr = hobbies || 'без увлечений';
+
         const langNames = {
           ru: 'Russian',
           uk: 'Ukrainian',
           en: 'English'
         };
         const langName = langNames[language] || 'Russian';
-    
+
         const prompt = `
-    You are a resume assistant. Write a first-person "About Me" section in ${langName}.
-    
-    Do not list the skills literally. Instead, describe strengths by meaning. If hobbies are provided, naturally weave them into the narrative. Keep it short (300–500 characters).
-    
-    Name: ${name}
-    Profession: ${specialty}
-    Skills: ${skillStr}
-    Hobbies: ${hobbyStr}
-    `;
-    
-        const keyRecord = await Setting.findOne({ key: 'OPENAI_API_KEY' });
-        const hfApiKey = keyRecord.value;
-    
-        const response = await axios.post(
-          'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
-          { inputs: prompt },
-          {
-            headers: {
-              Authorization: `Bearer ${hfApiKey}`,
-              'Content-Type': 'application/json',
-            },
-            timeout: 30000,
-          }
-        );
-    
-        const result = response.data?.[0]?.generated_text;
-        if (!result) throw new Error('Пустой ответ от модели');
-    
+Вы — помощник по составлению резюме. Напишите раздел «О себе» от первого лица на языке ${langName}.
+
+Не перечисляй навыки дословно. Вместо этого используй их смысл. Если указаны хобби — вплети их естественным образом в рассказ. Сделайте текст кратким (от 300 до 500 символов).
+
+Name: ${name}
+Profession: ${specialty}
+Skills: ${skillStr}
+Hobbies: ${hobbyStr}
+`;
+
+        const completion = await openai.chat.completions.create({
+          model: 'gpt-3.5-turbo',
+          messages: [{ role: 'user', content: prompt }],
+          temperature: 0.7,
+        });
+
+        const result = completion.choices[0]?.message?.content;
+        if (!result) throw new Error('GPT вернул пустой результат');
+
         res.json({ description: result.trim() });
       } catch (error) {
-        console.error('❌ HuggingFace error:', error?.response?.data || error.message || error);
+        console.error('❌ OpenAI error:', error?.response?.data || error.message || error);
         res.status(500).json({ error: 'Ошибка генерации описания.' });
       }
     });

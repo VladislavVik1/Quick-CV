@@ -1,4 +1,4 @@
-// =================== ЯЗЫК: модальное окно выбора и сохранение ===================
+
 let selectedLanguage = localStorage.getItem('language') || 'ru';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,15 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('language', selectedLanguage);
     modal.style.display = 'none';
 
-    // 🔁 СРАЗУ МЕНЯЕМ ТЕКСТЫ НА СТРАНИЦЕ:
     if (typeof applyTranslations === 'function') {
-      applyTranslations(); // если ты вынес это как отдельную функцию
+      applyTranslations();
     } else {
-      location.reload(); // fallback если нет applyTranslations
+      location.reload();
     }
   });
 });
-  // =================== ВСЯ ОСТАЛЬНАЯ ЛОГИКА ПОСЛЕ ВЫБОРА ЯЗЫКА ===================
 
   const genDescBtn = document.getElementById('genDesc');
   const noExp = document.getElementById('noExperience');
@@ -213,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
           skills: selectedSkills,
           specialty,
           hobbies,
-          language: selectedLanguage // ✅ передаем язык на сервер
+          language: selectedLanguage
         })
       });
 
@@ -312,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     document.getElementById('output').innerHTML = html;
-
+    translateCVPreview(); 
     try {
       const res = await fetch('/api/cv', {
         method: 'POST',
@@ -351,3 +349,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+function translateCVPreview() {
+  const lang = localStorage.getItem('language') || 'ru';
+  const t = translations[lang];
+  const output = document.getElementById('output');
+
+  if (!output || !output.innerHTML.trim()) return;
+
+  const replacements = {
+    'Возраст': t.age,
+    'Телефон': t.phone,
+    'Email': t.email,
+    'Город': t.city,
+    'Портфолио': t.portfolio,
+    'Языки': t.languages,
+    'Навыки': t.skillInput,
+    'Профессия': t.specialty,
+    'Опыт': 'Опыт', 
+    'Образование': t.education,
+    'Хобби': t.hobbies,
+    'О себе': t.about,
+    'Нет опыта': t.noExperience,
+    'Нет опыта, но проходил(а) курсы': t.courseExperience
+  };
+
+  let html = output.innerHTML;
+
+
+  Object.entries(replacements).forEach(([ruText, translated]) => {
+    const regex = new RegExp(`(<strong>)${ruText}(?=:)`, 'g');
+    html = html.replace(regex, `$1${translated}`);
+  });
+
+
+  html = html.replace(/<strong>.*?Опыт:.*?<\/strong>\s*Нет опыта/g, `<strong>${t.position}:</strong> ${t.noExperience}`);
+  html = html.replace(/<strong>.*?Опыт:.*?<\/strong>\s*Нет опыта, но проходил\(а\) курсы:/g, `<strong>${t.position}:</strong> ${t.courseExperience}:`);
+
+  output.innerHTML = html;
+}

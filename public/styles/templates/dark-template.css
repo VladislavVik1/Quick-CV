@@ -1,0 +1,14 @@
+.cv-live-preview.dark {
+    background-color: #1a1a1a;
+    color: #f5f5f5;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .cv-live-preview.dark h2 {
+    color: #00e0ff;
+  }
+  
+  .cv-live-preview.dark .cv-header {
+    border-bottom: 2px solid #00e0ff;
+  }
+  

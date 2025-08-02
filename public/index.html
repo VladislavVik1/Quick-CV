@@ -4,117 +4,132 @@
   <meta charset="UTF-8" />
   <title>Создание резюме</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./styles/templates/modern-template.css">
+  <link rel="stylesheet" href="./styles/templates/dark-template.css">
+  <link rel="stylesheet" href="./styles/templates/strict-template.css">
+
 </head>
 <body>
-  <a href="./pages/First_page.html">Первая страница</a>
-  <div class="a4-wrapper">
-  <div class="cv-form-wrapper">
-  <form id="cvForm">
-    <div class="form-left">
-      <input type="text" id="firstName" placeholder="Имя" required />
-      <input type="text" id="lastName" placeholder="Фамилия" required />
-      <input type="number" id="age" placeholder="Возраст" required />
-      <input type="tel" id="phone" placeholder="Телефон" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="text" id="github" placeholder="Профиль GitHub" />
-      <input type="text" id="linkedin" placeholder="Профиль LinkedIn (необязательно)" />
-      <input type="text" id="telegram" placeholder="Профиль Telegram (необязательно)" />
-      <input type="text" id="city" placeholder="Страна и Город" required />
-      <input type="text" id="portfolio" placeholder="Портфолио (необязательно)" />
-      <input type="text" id="languages" placeholder="Языки (например: Русский, Украинский, Английский)" />
-      <input type="text" id="specialty" placeholder="Профессия (например: Риелтор, Бухгалтер, Учитель)" required />
-
-
-      
-      <div id="skillsContainer">
-        <input type="text" id="skillInput" placeholder="Выберите навыки из списка..." autocomplete="off" />
-        <ul id="suggestions" class="hidden"></ul>
-        <div id="selectedSkills"></div>
-      </div>
-
-      <div id="experienceOptions">
-        <label><input type="checkbox" id="noExperience" /> Нет опыта</label><br />
-        <label><input type="checkbox" id="courseExperience" /> Нет опыта, но проходил(ла) курсы</label>
-      </div>
-      
-      <div id="experienceSection">
-        <input type="text" id="position" placeholder="Прошлое место работы" />
-        <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
-      </div>
-      
-      <div id="coursesSection" style="display: none;">
-        <input type="text" id="courses" placeholder="Какие курсы вы прошли (например: GoIT Fullstack, Hilel Frontend)" />
-      </div>
-
-      <input type="text" id="education" placeholder="Образование (например: НУ 'Львівська політехніка, закончил в 2015 году. Высшее')" />
-
-      <input
-      type="text" id="hobbies" placeholder="Хобби (например: чтение, спорт, путешествия)" />
-
-      <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 10 секунд)</button>
-      <textarea id="about" placeholder="О себе" rows="6"></textarea>
+  <div id="languageModal" class="language-modal">
+    <div class="language-content">
+      <h2>Выберите язык / Select language / Оберіть мову</h2>
+      <button data-lang="ru">Русский</button>
+      <button data-lang="uk">Українська</button>
+      <button data-lang="en">English</button>
     </div>
-
-    <div class="form-right">
-      <label for="photo">Фото:</label>
-      <input type="file" id="photo" accept="image/*" />
-      <img id="preview" src="" alt="Preview" />
-    </div>
-  </form>
-  <div class="cv-live-preview">
-    <div class="editor-toolbar">
-      <label>Шрифт:
-        <select id="fontSelect">
-          <option value="Arial">Arial</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Courier New">Courier New</option>
-        </select>
-      </label>
-      <button type="button" onclick="document.execCommand('bold')">B</button>
-      <button type="button" onclick="document.execCommand('italic')"><i>I</i></button>
-      <input type="color" id="colorPicker" title="Цвет текста" />
-    </div>
+  </div>
   
-    <div id="livePreview" class="cv-preview-output">
-  <div class="cv-header">
-    <div class="cv-header-content">
-      <h2><span id="liveName" contenteditable="true">Имя Фамилия</span></h2>
-      <p><strong>Возраст:</strong> <span id="liveAge" contenteditable="true">—</span></p>
-      <p><strong>Телефон:</strong> <span id="livePhone" contenteditable="true">—</span></p>
-      <p><strong>Email:</strong> <span id="liveEmail" contenteditable="true">—</span></p>
-      <p><strong>GitHub:</strong> <span id="liveGithub" contenteditable="true">—</span></p>
-      <p><strong>LinkedIn:</strong> <span id="liveLinkedin" contenteditable="true">—</span></p>
-      <p><strong>Telegram:</strong> <span id="liveTelegram" contenteditable="true">—</span></p>
-      <p><strong>Город:</strong> <span id="liveCity" contenteditable="true">—</span></p>
-      <p><strong>Портфолио:</strong> <span id="livePortfolio" contenteditable="true">—</span></p>
-      <p><strong>Языки:</strong> <span id="liveLanguages" contenteditable="true">—</span></p>
-      <p><strong>Профессия:</strong> <span id="liveSpecialty" contenteditable="true">—</span></p>
-      <p><strong>Навыки:</strong> <span id="liveSkills" contenteditable="true">—</span></p>
-      <p><strong>Опыт:</strong> <span id="liveExperience" contenteditable="true">—</span></p>
-      <p><strong>Курсы:</strong> <span id="liveCourses" contenteditable="true">—</span></p>
-      <p><strong>Образование:</strong> <span id="liveEducation" contenteditable="true">—</span></p>
-      <p><strong>Хобби:</strong> <span id="liveHobbies" contenteditable="true">—</span></p>
-      <p><strong>О себе:</strong> <span id="liveAbout" contenteditable="true">—</span></p>
+  <div class="a4-wrapper">
+    <div class="cv-form-wrapper">
+      <form id="cvForm">
+        <div class="form-left">
+          <input type="text" id="firstName" placeholder="Имя" required />
+          <input type="text" id="lastName" placeholder="Фамилия" required />
+          <input type="number" id="age" placeholder="Возраст" required />
+          <input type="tel" id="phone" placeholder="Телефон" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input type="text" id="github" placeholder="GitHub" />
+          <input type="text" id="linkedin" placeholder="LinkedIn" />
+          <input type="text" id="telegram" placeholder="Telegram" />
+          <input type="text" id="city" placeholder="Город" required />
+          <input type="text" id="portfolio" placeholder="Портфолио" />
+          <input type="text" id="languages" placeholder="Языки" />
+          <input type="text" id="specialty" placeholder="Профессия" required />
+
+          <div id="skillsContainer">
+            <input type="text" id="skillInput" placeholder="Навыки..." autocomplete="off" />
+            <ul id="suggestions" class="hidden"></ul>
+            <div id="selectedSkills"></div>
+          </div>
+
+          <div id="experienceOptions">
+            <label><input type="checkbox" id="noExperience" /> Нет опыта</label><br />
+            <label><input type="checkbox" id="courseExperience" /> Нет, но проходил(ла) курсы</label>
+          </div>
+
+          <div id="experienceSection">
+            <input type="text" id="position" placeholder="Место работы" />
+            <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
+          </div>
+
+          <div id="coursesSection" style="display: none;">
+            <input type="text" id="courses" placeholder="Курсы (например: GoIT Fullstack)" />
+          </div>
+
+          <input type="text" id="education" placeholder="Образование" />
+          <input type="text" id="hobbies" placeholder="Хобби" />
+          <button type="button" id="genDesc">Сгенерировать описание</button>
+          <textarea id="about" placeholder="О себе"></textarea>
+        </div>
+
+        <div class="form-right">
+          <label for="photo">Фото:</label>
+          <input type="file" id="photo" accept="image/*" />
+          <img id="preview" src="" alt="Preview" />
+        </div>
+      </form>
     </div>
-    <img id="livePhoto" src="" alt="Фото" class="cv-photo-fixed" />
+
+    <!-- Правая колонка: Превью -->
+    <div class="cv-preview-wrapper">
+      <div class="template-selector">
+        <button data-template="modern">Современный</button>
+        <button data-template="dark">Темный</button>
+        <button data-template="strict">Строгий</button>
+      </div>
+      <div class="cv-live-preview">
+        <div class="editor-toolbar">
+          <label>Шрифт:
+            <select id="fontSelect">
+              <option value="Arial">Arial</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Courier New">Courier New</option>
+            </select>
+          </label>
+          <button type="button" onclick="document.execCommand('bold')">B</button>
+          <button type="button" onclick="document.execCommand('italic')"><i>I</i></button>
+          <input type="color" id="colorPicker" title="Цвет текста" />
+        </div>
+
+        <div id="livePreview" class="cv-preview-output">
+          <div class="cv-header">
+            <div class="cv-header-content">
+              <h2><span id="liveName" contenteditable="true">Имя Фамилия</span></h2>
+              <p><strong>Возраст:</strong> <span id="liveAge" contenteditable="true">—</span></p>
+              <p><strong>Телефон:</strong> <span id="livePhone" contenteditable="true">—</span></p>
+              <p><strong>Email:</strong> <span id="liveEmail" contenteditable="true">—</span></p>
+              <p><strong>GitHub:</strong> <span id="liveGithub" contenteditable="true">—</span></p>
+              <p><strong>LinkedIn:</strong> <span id="liveLinkedin" contenteditable="true">—</span></p>
+              <p><strong>Telegram:</strong> <span id="liveTelegram" contenteditable="true">—</span></p>
+              <p><strong>Город:</strong> <span id="liveCity" contenteditable="true">—</span></p>
+              <p><strong>Портфолио:</strong> <span id="livePortfolio" contenteditable="true">—</span></p>
+              <p><strong>Языки:</strong> <span id="liveLanguages" contenteditable="true">—</span></p>
+              <p><strong>Профессия:</strong> <span id="liveSpecialty" contenteditable="true">—</span></p>
+              <p><strong>Навыки:</strong> <span id="liveSkills" contenteditable="true">—</span></p>
+              <p><strong>Опыт:</strong> <span id="liveExperience" contenteditable="true">—</span></p>
+              <p><strong>Курсы:</strong> <span id="liveCourses" contenteditable="true">—</span></p>
+              <p><strong>Образование:</strong> <span id="liveEducation" contenteditable="true">—</span></p>
+              <p><strong>Хобби:</strong> <span id="liveHobbies" contenteditable="true">—</span></p>
+              <p><strong>О себе:</strong> <span id="liveAbout" contenteditable="true">—</span></p>
+            </div>
+            <img id="livePhoto" src="" alt="Фото" class="cv-photo-fixed" />
+          </div>
+        </div>
+
+        <div class="cv-download-btn-wrapper">
+          <button id="downloadLivePDF" class="download-btn">СОХРАНИТЬ В PDF</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-  </div>
-  <div class="cv-download-btn-wrapper">
-    <button id="downloadLivePDF" class="download-btn">СОХРАНИТЬ В PDF</button>
-  </div>
 
-
-  <div id="output"></div>
-</div>
-</div>
-
-<script src="script.js"></script>
-<script src="./scripts/live-preview.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="./pdf/generate-pdf.js"></script>
-
+  <!-- Скрипты -->
+  <script src="./scripts/translations.js"></script>
+  <script src="script.js"></script>
+  <script src="./scripts/live-preview.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="./pdf/generate-pdf.js"></script>
 </body>
 </html>

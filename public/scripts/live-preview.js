@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 👤 Имя + фамилия
     const firstName = document.getElementById('firstName');
     const lastName = document.getElementById('lastName');
     const liveName = document.getElementById('liveName');
@@ -105,6 +104,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
     document.getElementById('colorPicker')?.addEventListener('input', e => {
       document.execCommand('foreColor', false, e.target.value);
+    });
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const preview = document.querySelector('.cv-live-preview');
+    const buttons = document.querySelectorAll('.template-selector button');
+  
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const template = btn.dataset.template;
+  
+        // Очистити попередні шаблони
+        preview.classList.remove('modern', 'dark', 'strict');
+        preview.classList.add(template);
+      });
     });
   });
   

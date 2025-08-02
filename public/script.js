@@ -1,9 +1,38 @@
+// =================== ЯЗЫК: модальное окно выбора и сохранение ===================
+let selectedLanguage = localStorage.getItem('language') || 'ru';
+
 document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('languageModal');
+  const langButtons = modal.querySelectorAll('button');
+
+  if (!localStorage.getItem('language')) {
+    modal.style.display = 'flex';
+  } else {
+    modal.style.display = 'none';
+  }
+
+  langButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    selectedLanguage = btn.dataset.lang;
+    localStorage.setItem('language', selectedLanguage);
+    modal.style.display = 'none';
+
+    // 🔁 СРАЗУ МЕНЯЕМ ТЕКСТЫ НА СТРАНИЦЕ:
+    if (typeof applyTranslations === 'function') {
+      applyTranslations(); // если ты вынес это как отдельную функцию
+    } else {
+      location.reload(); // fallback если нет applyTranslations
+    }
+  });
+});
+  // =================== ВСЯ ОСТАЛЬНАЯ ЛОГИКА ПОСЛЕ ВЫБОРА ЯЗЫКА ===================
+
   const genDescBtn = document.getElementById('genDesc');
   const noExp = document.getElementById('noExperience');
   const experienceSection = document.getElementById('experienceSection');
   const courseExp = document.getElementById('courseExperience');
   const coursesSection = document.getElementById('coursesSection');
+
   function updateExperienceDisplay() {
     const noChecked = noExp.checked;
     const courseChecked = courseExp.checked;
@@ -15,9 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
     coursesSection.style.display = courseChecked ? 'block' : 'none';
   }
 
-  noExp.addEventListener('change', updateExperienceDisplay);
-  courseExp.addEventListener('change', updateExperienceDisplay);
-  updateExperienceDisplay();
+  if (noExp && courseExp && experienceSection && coursesSection) {
+    noExp.addEventListener('change', updateExperienceDisplay);
+    courseExp.addEventListener('change', updateExperienceDisplay);
+    updateExperienceDisplay();
+  }
+
   const skillInput = document.getElementById('skillInput');
   const suggestionsList = document.getElementById('suggestions');
   const selectedSkillsContainer = document.getElementById('selectedSkills');
@@ -161,14 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (noExp && experienceSection) {
   noExp.addEventListener('change', () => {
     experienceSection.style.display = noExp.checked ? 'none' : 'block';
   });
+}
 
   genDescBtn.addEventListener('click', async () => {
     const name = document.getElementById('firstName')?.value.trim() || 'Кандидат';
     const specialty = document.getElementById('specialty')?.value.trim() || 'специалист';
-  
+    const hobbies = document.getElementById('hobbies')?.value.trim() || '';
+
     try {
       const response = await fetch('/generate-description', {
         method: 'POST',
@@ -176,10 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           name,
           skills: selectedSkills,
-          specialty
+          specialty,
+          hobbies,
+          language: selectedLanguage // ✅ передаем язык на сервер
         })
       });
-  
+
       const result = await response.json();
       document.getElementById('about').value = result.description || 'Ошибка генерации описания.';
     } catch (error) {
@@ -187,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('about').value = 'Ошибка генерации описания.';
     }
   });
-  
 
   document.getElementById('photo')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -198,9 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-  
+
     const errors = [];
-  
+
     const name = document.getElementById('firstName')?.value.trim();
     const lastName = document.getElementById('lastName')?.value.trim();
     const age = document.getElementById('age')?.value.trim();
@@ -217,10 +253,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const noExperience = document.getElementById('noExperience')?.checked;
     const courseExperience = document.getElementById('courseExperience')?.checked;
     const courses = document.getElementById('courses')?.value.trim();
-  
+
     const photoFile = document.getElementById('photo')?.files[0];
     const photoURL = photoFile ? URL.createObjectURL(photoFile) : '';
-  
+
     if (!name) errors.push('Имя');
     if (!lastName) errors.push('Фамилия');
     if (!age) errors.push('Возраст');
@@ -230,25 +266,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!city) errors.push('Город');
     if (!languages) errors.push('Языки');
     if (selectedSkills.length < 1) errors.push('Навыки');
-  
+
     const hasExperience =
       (!noExperience && !courseExperience && position && years) ||
       noExperience ||
       courseExperience;
-  
+
     if (!hasExperience) errors.push('Опыт работы (или отметьте соответствующую галочку)');
     if (courseExperience && !courses) errors.push('Укажите, какие курсы вы прошли');
-  
+
     if (!education) errors.push('Образование');
     if (!hobbies) errors.push('Хобби');
     if (!about) errors.push('О себе');
     if (!photoFile) errors.push('Фото');
-  
+
     if (errors.length > 0) {
       alert(`❌ Пожалуйста, заполните следующие поля:\n- ${errors.join('\n- ')}`);
       return;
     }
-  
+
     const html = `
       <div class="cv-preview">
         <div class="cv-header">
@@ -276,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     document.getElementById('output').innerHTML = html;
-  
+
     try {
       const res = await fetch('/api/cv', {
         method: 'POST',
@@ -302,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
           years
         })
       });
-  
+
       const data = await res.json();
       if (res.ok) {
         console.log('✅ Резюме успешно отправлено:', data);

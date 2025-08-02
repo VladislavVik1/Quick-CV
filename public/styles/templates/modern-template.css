@@ -1,0 +1,15 @@
+.cv-live-preview.modern {
+    background-color: #ffffff;
+    color: #333;
+    font-family: "Helvetica", sans-serif;
+    border-left: 10px solid #ff6b00;
+  }
+  
+  .cv-live-preview.modern h2 {
+    color: #ff6b00;
+  }
+  
+  .cv-live-preview.modern .cv-header {
+    border-bottom: 2px solid #ff6b00;
+  }
+  

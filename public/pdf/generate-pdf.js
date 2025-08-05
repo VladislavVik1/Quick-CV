@@ -36,7 +36,7 @@ async function downloadPDF() {
     education: document.getElementById('education')?.value.trim(),
     hobbies: document.getElementById('hobbies')?.value.trim(),
     about: document.getElementById('about')?.value.trim(),
-    photo: document.getElementById('preview')?.src || '',
+    photo: base64Photo || document.getElementById('preview')?.src || '',
   };
 
   // 2. Отправляем данные на сервер

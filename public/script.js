@@ -1,6 +1,7 @@
 let selectedLanguage = localStorage.getItem('language') || 'ru';
 
 document.addEventListener('DOMContentLoaded', () => {
+  let base64Photo = '';
   const modal = document.getElementById('languageModal');
   const langButtons = modal.querySelectorAll('button');
 
@@ -229,12 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('photo')?.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      document.getElementById('preview').src = URL.createObjectURL(file);
-    }
-  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -259,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const courses = document.getElementById('courses')?.value.trim();
 
     const photoFile = document.getElementById('photo')?.files[0];
-    const photoURL = photoFile ? URL.createObjectURL(photoFile) : '';
 
     if (!name) errors.push('Имя');
     if (!lastName) errors.push('Фамилия');
@@ -298,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Телефон:</strong> ${phone}</p>
             <p><strong>Email:</strong> ${email}</p>
           </div>
-          ${photoURL ? `<img src="${photoURL}" alt="Фото" class="cv-photo"/>` : ''}
+         ${base64Photo ? `<img src="${base64Photo}" alt="Фото" class="cv-photo"/>` : ''} 
         </div>
         <p><strong>Город:</strong> ${city}</p>
         <p><strong>Языки:</strong> ${languages}</p>
@@ -334,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
           hobbies,
           about,
           skills: selectedSkills,
-          photo: photoURL,
+          photo: base64Photo || document.getElementById('preview')?.src || '',
           noExperience,
           courseExperience,
           courses,
@@ -354,7 +348,22 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Ошибка соединения с сервером');
     }
   });
-  
+
+document.getElementById('photo').addEventListener('change', function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    base64Photo = e.target.result;
+    document.getElementById('preview').src = base64Photo;
+    document.getElementById('livePhoto').src = base64Photo;
+  };
+
+  reader.readAsDataURL(file);
+});
+
 });
 
 function translateCVPreview() {

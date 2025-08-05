@@ -1,4 +1,3 @@
-
 let selectedLanguage = localStorage.getItem('language') || 'ru';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,6 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const suggestionsList = document.getElementById('suggestions');
   const selectedSkillsContainer = document.getElementById('selectedSkills');
   const form = document.getElementById('cvForm');
+  const downloadBtn = document.getElementById('downloadLivePDF');
+
+  if (form && downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    });
+  }
 
   const allSkills = [
     // Frontend
@@ -348,7 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Ошибка соединения с сервером');
     }
   });
+  
 });
+
 function translateCVPreview() {
   const lang = localStorage.getItem('language') || 'ru';
   const t = translations[lang];

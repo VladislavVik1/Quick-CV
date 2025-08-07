@@ -131,112 +131,6 @@ body {
   transition: width 0.5s ease;
 }
 
-.left-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Расстояние между вкладками */
-}
-
-.tab-button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 350px;
-  height: 52px;
-  background-color: #FFFFFF;
-  box-shadow: 0px 2px 10px 10px rgba(0, 0, 0, 0.06);
-  border: none;
-  font-size: 16px;
-  text-align: left;
-  padding: 0 20px; /* слева и справа */
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.tab-button:hover {
-  background-color: #e0e0e0;
-}
-
-.tab-button.active {
-  background-color: #d0dfff;
-  border-color: #7aa9ff;
-  font-weight: bold;
-}
-
-.arrow-icon {
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-  transition: transform 0.3s ease;
-}
-
-.submenu {
-  max-height: 0;
-  overflow: hidden;
-  display: block;
-  padding-left: 0;
-  border-left: 2px solid transparent;
-  transition: max-height 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
-}
-
-.submenu.open {
-  max-height: 1000px;
-  padding-left: 10px;
-  border-left: 2px solid #ccc;
-}
-
-.tab-button.inner {
-  background-color: #f9f9f9;
-  font-size: 15px;
-  padding: 12px 20px;
-  margin-top: 5px;
-}
-
-.submenu-item {
-  background-color: #f0f0f0;
-  border: none;
-  margin: 4px 0;
-  padding: 10px;
-  border-radius: 6px;
-  text-align: left;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.submenu-item:hover {
-  background-color: #e6e6e6;
-}
-
-.color-row {
-  display: flex;
-  gap: 10px;
-  padding: 15px 0;
-  flex-wrap: wrap;
-}
-
-.color-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border: 1px solid #ddd;
-}
-
-.plus-tab {
-  font-size: 22px;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.tab-button.no-arrow img {
-  display: none;
-}
-
 .save-cv-btn {
   width: 320px;
   height: 71px;
@@ -256,4 +150,163 @@ body {
   cursor: pointer;
 
   box-shadow: 0px 2px 10px 10px rgba(0, 0, 0, 0.06);
+}
+
+.left-tabs {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  width: 350px;
+  padding: 0 20px;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  line-height: auto;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: background-color .2s ease;
+}
+
+.tab-button p {
+  font-size: 15px;
+}
+
+.tab-button:hover { background: #e0e0e0; }
+
+.arrow-icon {
+  width: 16px; height: 16px;
+  pointer-events: none;
+  transition: transform .3s ease;
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+
+.submenu.open {
+  max-height: 300px;
+}
+
+.submenu-item {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submenu-item + .submenu-item { margin-top: 6px; }
+.submenu-item:hover { background: #ececec; }
+
+.left-tabs .submenu {
+  display: block;          /* никакого flex тут */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+
+.left-tabs .submenu.open {
+  max-height: 600px !important;  /* перебиваем возможные конфликты */
+}
+
+.left-tabs .tab-button .arrow-icon {
+  transition: transform .3s ease;
+}
+
+.plus-tab span { 
+  font-size: 24px;
+}
+
+.tab-button.open { background: #E0E0E0; }
+
+.submenu-content {
+  padding: 10px 8px 6px;
+  display: grid;
+  row-gap: 10px;
+}
+
+.text-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  font-size: 15px;
+  color: #616161;
+  outline: none;
+}
+.text-input::placeholder { color: #616161; opacity: 1; }
+
+
+.triple-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.row-button{
+  display:flex; align-items:center; justify-content:space-between;
+  height:44px; padding:0 14px; border:none; border-radius:10px;
+  background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.06);
+  font-size:15px; color:#616161; cursor:pointer;
+}
+.row-button .plus{ font-size:18px; font-weight:700; color:#111; }
+.center-plus{ justify-content:center; }
+
+.tab-bottom-rule{
+  display:none;
+  height:3px;
+  background: rgba(21,21,21,.35);
+  border-radius:999px;
+  width:350px;
+  margin:12px auto 18px;
+}
+.submenu.open + .tab-bottom-rule{ display:block; }
+
+.arrow-icon{ width:18px; height:18px; filter:brightness(0) saturate(100%); }
+
+.tab-button.inner{
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  height:48px;
+}
+
+.tab-button p{ margin:0; font-size:15px; }
+
+.plus-tab {
+  display: flex;
+  justify-content: center;
+}
+
+.phone-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone-input img {
+  position: absolute;
+  left: 12px;
+  width: 20px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.phone-input .text-input {
+  padding-left: 42px; /* место под флаг */
 }

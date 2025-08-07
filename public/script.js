@@ -190,22 +190,3 @@ document.getElementById('cvForm').addEventListener('submit', function (e) {
   document.getElementById('output').innerHTML = html;
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tabButtons = document.querySelectorAll('.tab-button');
-
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const submenu = button.nextElementSibling;
-
-        if (!submenu || !submenu.classList.contains('submenu')) return;
-
-        submenu.classList.toggle('open');
-
-        const arrow = button.querySelector('.arrow-icon');
-        if (arrow) {
-          const isOpen = submenu.classList.contains('open');
-          arrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-        }
-      });
-    });
-  });

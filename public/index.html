@@ -7,56 +7,56 @@
 </head>
 <body>
 
-      <header class="up-header-wrapper">
-        <div class="up-header">
-            <img src="../public/styles/img_pages/QuickCV_logo.svg">
-            <div class="up-head-text">
-                <a href="./pages/First_page.html" class="regular-a">Home</a>
-                <a href="#" class="regular-a">Advantages</a>
-                <a href="./index.html" class="regular-a">Create CV</a>
-                <a href="#" class="regular-a">Subscribe</a>
-                <a href="#" class="regular-a">FAQ</a>
-            </div>
-            <a href="#" class="btn-login">Login</a>
-        </div>
-    </header>
-
-  <!-- <a href="./pages/First_page.html">Первая страница</a>
-  <div class="cv-container">
-  <form id="cvForm">
-    <div class="form-left">
-      <input type="text" id="firstName" placeholder="Имя" required />
-      <input type="text" id="lastName" placeholder="Фамилия" required />
-      <input type="number" id="age" placeholder="Возраст" required />
-      <input type="tel" id="phone" placeholder="Телефон" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <div id="skillsContainer">
-        <input type="text" id="skillInput" placeholder="Введите навык..." autocomplete="off" />
-        <ul id="suggestions" class="hidden"></ul>
-        <div id="selectedSkills"></div>
+<header class="up-header-wrapper">
+    <div class="up-header">
+          <img src="../public/styles/img_pages/QuickCV_logo.svg">
+          <div class="up-head-text">
+              <a href="./pages/First_page.html" class="regular-a">Home</a>
+              <a href="#" class="regular-a">Advantages</a>
+              <a href="./index.html" class="regular-a">Create CV</a>
+              <a href="#" class="regular-a">Subscribe</a>
+              <a href="#" class="regular-a">FAQ</a>
+          </div>
+          <a href="#" class="btn-login">Login</a>
       </div>
-      
-      
-      <label><input type="checkbox" id="noExperience" /> Нет опыта</label>
-      <div id="experienceSection">
-        <input type="text" id="position" placeholder="Должность" />
-        <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
+</header>
+
+  
+<section class="cv-container">
+  <form class="main-form">
+
+    <div class="left-form">
+      <div class="readness-block">
+        <p>Resume readiness</p>
+        <span>0%</span>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
       </div>
 
-      <button type="button" id="genDesc">Сгенерировать описание (Ожидание может занять 30 секунд)</button>
-      <textarea id="about" placeholder="О себе" rows="6"></textarea>
-      <button type="submit" class="submit-btn">СГЕНЕРИРОВАТЬ CV</button>
+      <div class="left-tabs">
+        <button class="tab-button" onclick="openLeftTab(event, 'tab1')">
+          Вкладка 1
+            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
+        </button>
+        <button class="tab-button" onclick="openLeftTab(event, 'tab2')">
+          Вкладка 2
+            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
+        </button>
+        <button class="tab-button" onclick="openLeftTab(event, 'tab3')">
+          Вкладка 3
+            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
+        </button>
+      </div>
+
+      <button class="save-cv-btn">Save CV</button>
     </div>
 
-    <div class="form-right">
-      <label for="photo">Фото:</label>
-      <input type="file" id="photo" accept="image/*" />
-      <img id="preview" src="" alt="Preview" />
-    </div>
+    <div class="right-form"></div>
+
   </form>
+</section>
 
-  <div id="output"></div>
-</div>
   <script src="script.js"></script>
 </body>
-</html> -->
+</html> 

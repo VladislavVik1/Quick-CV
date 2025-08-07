@@ -34,20 +34,97 @@
           </div>
       </div>
 
-      <div class="left-tabs">
-        <button class="tab-button" onclick="openLeftTab(event, 'tab1')">
-          Вкладка 1
-            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
-        </button>
-        <button class="tab-button" onclick="openLeftTab(event, 'tab2')">
-          Вкладка 2
-            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
-        </button>
-        <button class="tab-button" onclick="openLeftTab(event, 'tab3')">
-          Вкладка 3
-            <img src="icons/arrow-down.svg" class="arrow-icon" alt="▼">
-        </button>
-      </div>
+<div class="left-tabs">
+
+  <!-- Вкладка 1 -->
+  <button class="tab-button" onclick="toggleSubmenu(this)">
+    Вкладка 1
+    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+  </button>
+  <div class="submenu">
+    <button class="tab-button inner" onclick="toggleSubmenu(this)">
+      Подвкладка 1.1
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+    <div class="submenu">
+      <button class="submenu-item">Вложенная 1.1.1</button>
+      <button class="submenu-item">Вложенная 1.1.2</button>
+    </div>
+
+    <button class="tab-button inner" onclick="toggleSubmenu(this)">
+      Подвкладка 1.2
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+    <div class="submenu">
+      <button class="submenu-item">Вложенная 1.2.1</button>
+      <button class="submenu-item">Вложенная 1.2.2</button>
+    </div>
+
+    <!-- Плюсик-кнопка -->
+    <button class="tab-button plus-tab inner">+</button>
+  </div>
+
+  <!-- Вкладка 2 -->
+  <button class="tab-button" onclick="toggleSubmenu(this)">
+    Вкладка 2
+    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+  </button>
+  <div class="submenu">
+    <div class="color-row">
+      <div class="color-btn" style="background-color: #5e5e5e;"></div>
+      <div class="color-btn" style="background-color: #888;"></div>
+      <div class="color-btn" style="background-color: #e64343;"></div>
+      <div class="color-btn" style="background-color: #8cb8ff;"></div>
+      <div class="color-btn" style="background-color: #43e643;"></div>
+      <div class="color-btn" style="background-color: #f2c94c;"></div>
+      <div class="color-btn" style="background-color: #a259ff;"></div>
+    </div>
+
+    <button class="tab-button inner">
+      Typeface
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+
+    <button class="tab-button inner">
+      Font
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+
+    <button class="tab-button inner no-arrow">
+      Size
+    </button>
+  </div>
+
+  <!-- Вкладка 3 (такая же, как Вкладка 1) -->
+  <button class="tab-button" onclick="toggleSubmenu(this)">
+    Вкладка 3
+    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+  </button>
+  <div class="submenu">
+    <button class="tab-button inner" onclick="toggleSubmenu(this)">
+      Подвкладка 3.1
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+    <div class="submenu">
+      <button class="submenu-item">Вложенная 3.1.1</button>
+      <button class="submenu-item">Вложенная 3.1.2</button>
+    </div>
+
+    <button class="tab-button inner" onclick="toggleSubmenu(this)">
+      Подвкладка 3.2
+      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+    </button>
+    <div class="submenu">
+      <button class="submenu-item">Вложенная 3.2.1</button>
+      <button class="submenu-item">Вложенная 3.2.2</button>
+    </div>
+
+    <!-- Плюсик -->
+    <button class="tab-button plus-tab inner">+</button>
+  </div>
+
+</div>
+
 
       <button class="save-cv-btn">Save CV</button>
     </div>
@@ -57,6 +134,6 @@
   </form>
 </section>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html> 

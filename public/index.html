@@ -10,6 +10,166 @@
 
 </head>
 <body>
+
+
+<header class="up-header-wrapper">
+  <div class="up-header">
+    <img src="../public/styles/img_pages/QuickCV_logo.svg">
+    <div class="up-head-text">
+      <a href="./pages/First_page.html" class="regular-a">Home</a>
+      <a href="#" class="regular-a">Advantages</a>
+      <a href="./index.html" class="regular-a">Create CV</a>
+      <a href="#" class="regular-a">Subscribe</a>
+      <a href="#" class="regular-a">FAQ</a>
+    </div>
+    <a href="#" class="btn-login">Login</a>
+  </div>
+</header>
+
+<section id="cvForm" class="cv-container">
+  <form class="main-form">
+
+    <div class="left-form">
+      <div class="readness-block">
+        <p>Resume readiness</p>
+        <span id="progressPercent">0%</span>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="left-tabs">
+
+        <!-- Tab 1 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Your information</p>
+            <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+
+          <div class="submenu">
+            <button class="tab-button inner" type="button">
+              <p>Personal information</p>
+              <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu">
+              <div class="submenu-content">
+                <input class="text-input" type="text" placeholder="Your first name" id="firstName">
+                <input class="text-input" type="text" placeholder="Your last name" id="lastName">
+                <input class="text-input" type="text" placeholder="Address">
+                <input class="text-input" type="email" placeholder="Email" id="email">
+
+                <div class="triple-row">
+                  <input class="text-input-row" type="text" placeholder="Day">
+                  <input class="text-input-row" type="text" placeholder="Month">
+                  <input class="text-input-row" type="text" placeholder="Years" id="age">
+                </div>
+
+                <div class="phone-input">
+                  <img src="./styles/img_pages/us.svg" alt="🇺🇸">
+                  <input class="text-input" type="tel" placeholder="+1 000 000 0000" id="phone">
+                </div>
+
+                <button class="row-button" type="button">
+                  <span>Add your photo</span>
+                  <img class="plus-icon" src="./styles/img_pages/+.svg" alt="+">
+                  <input type="file" id="photo" accept="image/*" hidden>
+                </button>
+
+                <img id="preview" src="" alt="Preview" style="max-width:100%; display:none;">
+
+                <button class="row-button center-plus" type="button">
+                  <span class="plus">+</span>
+                </button>
+              </div>
+            </div>
+            <div class="tab-bottom-rule"></div>
+
+            <button class="tab-button inner" type="button">
+              <p>Professional information</p>
+              <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu">
+              <div class="submenu-content">
+                <input class="text-input" type="text" placeholder="Spatiality" id="position">
+                <input class="text-input" type="text" placeholder="Skills" id="skillInput">
+                <ul id="suggestions" class="hidden"></ul>
+                <div id="selectedSkills"></div>
+
+                <label class="checkbox-label">
+                  <input type="checkbox" id="noExperience">
+                  No experience
+                </label>
+
+                <div id="experienceSection">
+                  <input class="text-input" type="text" placeholder="Years (e.g.: 2020–2023)" id="years">
+                </div>
+
+                <input class="text-input" type="text" placeholder="LinkedIn">
+                <input class="text-input" type="text" placeholder="Portfolio">
+                <input class="text-input" type="text" placeholder="Education">
+                <input class="text-input" type="text" placeholder="Place of previous work">
+
+                <textarea class="text-input" placeholder="About" id="about" rows="6"></textarea>
+
+                <button class="row-button center-plus" type="button">
+                  <span class="plus">+</span>
+                </button>
+              </div>
+            </div>
+            <div class="tab-bottom-rule"></div>
+
+            <button class="tab-button plus-tab inner" type="button"><span>+</span></button>
+          </div>
+
+          <div class="tab-bottom-rule"></div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Edit</p>
+            <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+
+          <div class="submenu">
+            <div class="color-row">
+              <button class="color-btn" style="background:#8F8F8F" type="button"></button>
+              <button class="color-btn" style="background:#616161" type="button"></button>
+              <button class="color-btn" style="background:#99C0FF" type="button"></button>
+              <button class="color-btn" style="background:#B40000" type="button"></button>
+              <button class="color-btn" style="background:#139F00" type="button"></button>
+              <button class="color-btn" style="background:#F2C94E" type="button"></button>
+              <button class="color-btn" style="background:#9500A3" type="button"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Sample</p>
+            <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+
+          <div class="submenu">
+            <div class="sample-grid">
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_1.png" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_2.png" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_3.svg" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_4.svg" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_5.svg" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_6.svg" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_7.svg" alt=""></button>
+              <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_8.svg" alt=""></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="save-cv-btn" id="submitCV">Save CV</button>
+=======
   <a href="./pages/First_page.html">2232323</a>
   <div id="languageModal" class="language-modal">
     <div class="language-content">
@@ -19,6 +179,7 @@
       <button data-lang="en">English</button>
       <p>At this language we generate CV</p>
       <p>На этом языке мы будем генерировать CV</p>
+
     </div>
   </div>
   
@@ -61,6 +222,18 @@
             <input type="text" id="years" placeholder="Годы (например: 2020–2023)" />
           </div>
 
+    <div class="right-form">
+      <img src="./styles/img_pages/cv-wright.png">
+    </div>
+
+  </form>
+</section>
+
+<div id="output"></div>
+
+<script src="./second_script.js"></script>
+<script src="./script.js"></script>
+=======
           <div id="coursesSection" style="display: none;">
             <input type="text" id="courses" placeholder="Курсы (например: GoIT Fullstack)" />
           </div>
@@ -140,5 +313,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="./pdf/generate-pdf.js"></script>
   
+
 </body>
 </html>

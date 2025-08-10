@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // === настройки ===
-  const ANIM = 300;          // длительность анимации, мс
-  const BUFFER_PX = 2;       // страховочный буфер
-  const EXTRA_GAP_PX = 16;   // зазор снизу у открытой панели
+  const ANIM = 300;
+  const BUFFER_PX = 2;
+  const EXTRA_GAP_PX = 16;
 
-  // на случай, если были навешаны старые обработчики — сбросим узел
   const root = document.querySelector('.left-tabs');
   if (!root) return;
   root.replaceWith(root.cloneNode(true));
   const leftTabs = document.querySelector('.left-tabs');
 
-  // вспомогательные
   const getTargetHeight = (panel) => {
     const natural = panel.scrollHeight;
     const last = panel.lastElementChild;
@@ -19,44 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const setOpen = (btn, panel, open) => {
-    // старые классы/инлайны
     panel.classList.remove('open');
 
     if (open) {
-      // ОТКРЫТИЕ
-      // 1) готовим
       panel.style.overflow = 'hidden';
       panel.style.transition = 'none';
       panel.style.maxHeight = 'none';
       const target = getTargetHeight(panel);
 
-      // 2) старт: 0px
       panel.style.maxHeight = '0px';
 
-      // 3) следующий кадр — едем к target
       requestAnimationFrame(() => {
         panel.style.transition = `max-height ${ANIM}ms ease`;
         panel.style.maxHeight = target + 'px';
       });
 
-      // кнопка
       btn.classList.add('is-open');
       btn.setAttribute('aria-expanded', 'true');
 
       const onEnd = () => {
         panel.style.transition = 'none';
-        panel.style.maxHeight = 'none';   // снимаем ограничение, чтобы контейнер тянулся
-        panel.style.overflow = 'visible'; // тени/скругления не режутся
+        panel.style.maxHeight = 'none';
+        panel.style.overflow = 'visible';
         panel.removeEventListener('transitionend', onEnd);
       };
       panel.addEventListener('transitionend', onEnd);
 
     } else {
-      // ЗАКРЫТИЕ
       panel.style.overflow = 'hidden';
       panel.style.transition = 'none';
 
-      // фиксируем текущую высоту -> анимируем к 0
       const current = panel.scrollHeight;
       panel.style.maxHeight = current + 'px';
 
@@ -76,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // клик по табам
   leftTabs.addEventListener('click', (e) => {
     const btn = e.target.closest('.tab-button');
     if (!btn) return;
@@ -88,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setOpen(btn, panel, !isOpen);
   });
 
-  // пересчёт при ресайзе — открытым панелям снимаем ограничение
   window.addEventListener('resize', () => {
     document.querySelectorAll('.tab-button.is-open + .submenu').forEach(p => {
       p.style.transition = 'none';
@@ -96,4 +83,25 @@ document.addEventListener('DOMContentLoaded', () => {
       p.style.overflow = 'visible';
     });
   });
+});
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.color-btn');
+  if (!btn) return;
+
+  const row = btn.closest('.color-row');
+  if (!row) return;
+
+  row.querySelectorAll('.color-btn.is-active').forEach(b => b.classList.remove('is-active'));
+  btn.classList.add('is-active');
+
+});
+
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.sample-item');
+  if (!card) return;
+  const grid = card.closest('.sample-grid');
+  grid.querySelectorAll('.sample-item.is-active').forEach(el => el.classList.remove('is-active'));
+  card.classList.add('is-active');
+
 });

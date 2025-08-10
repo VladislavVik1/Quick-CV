@@ -1,5 +1,5 @@
 {
-  "name": "cv_creator",
+  "name": "quick-cv",
   "version": "1.0.0",
   "description": "Website, where you can create your own CV with stylish themes and possibility to use AI to upgrade performance and quality of your CV",
   "main": "server.js",
@@ -10,22 +10,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VladislavVik1/CV_creator.git"
+    "url": "git+https://github.com/VladislavVik1/Quick-CV.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VladislavVik1/CV_creator/issues"
+    "url": "https://github.com/VladislavVik1/Quick-CV/issues"
   },
-  "homepage": "https://github.com/VladislavVik1/CV_creator#readme",
+  "homepage": "https://github.com/VladislavVik1/Quick-CV#readme",
   "dependencies": {
+    "axios": "^1.11.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "joi": "^17.13.3",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.0",
     "node-fetch": "^3.3.2",
-    "openai": "^5.10.2"
+    "openai": "^5.11.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -21,7 +21,7 @@ let openai; // объявляем глобально
 
 const startServer = async () => {
   try {
-    await mongoose.connect('mongodb+srv://CvAdmin:Quickcvadmin@cluster0.t7x7ove.mongodb.net/quickcv');
+    await mongoose.connect('mongodb+srv://cvAdmin:quickcvadmin@cluster0.w060lzj.mongodb.net/quickcv?retryWrites=true&w=majority&appName=Cluster0');
     console.log('✅ MongoDB connected');
 
     const keyRecord = await Setting.findOne({ key: 'OPENAI_API_KEY' });

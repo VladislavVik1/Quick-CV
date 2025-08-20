@@ -495,3 +495,155 @@ body {
   padding-right: 315px;
   padding-top: 200px;
 }
+
+
+
+
+
+
+
+/* === Общая область предпросмотра макета === */
+.preview-host {
+  display: grid;
+  gap: 8px;
+}
+.preview-toolbar {
+  display: flex;
+  gap: 8px;
+}
+.preview-toolbar button {
+  padding: 6px 10px;
+  border: 1px solid #d0d7e2;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.preview-toolbar button:hover { background:#f3f4f6; }
+
+.preview-paper {
+  width: 794px;   /* A4 @96dpi примерно */
+  height: 1123px; /* A4 @96dpi */
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15,23,42,.06);
+  overflow: hidden;
+}
+
+/* === Базовые утилиты для всех макетов === */
+.cv {
+  font: 14px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #0b1220;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cv h1, .cv h2, .cv h3 { margin: 0 0 6px; }
+.cv small { color:#6b7280; }
+.cv .muted { color:#6b7280; }
+.cv ul { margin: 6px 0 0 18px; }
+.cv li { margin: 4px 0; }
+
+/* === Макет 1 === */
+.cv-1 {
+  padding: 28px;
+}
+.cv-1 .header {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.cv-1 .avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 12px;
+  background:#e5e7eb;
+  overflow:hidden;
+  flex:0 0 auto;
+}
+.cv-1 .title h1 { font-size: 26px; }
+.cv-1 .title .role { color:#475569; }
+.cv-1 .grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 20px;
+  margin-top: 10px;
+}
+.cv-1 .card {
+  border:1px solid #eef2f7;
+  border-radius: 10px;
+  padding: 12px;
+  background:#fff;
+}
+
+/* === Макет 2 === */
+.cv-2 {
+  display:grid;
+  grid-template-columns: 250px 1fr;
+  height:100%;
+}
+.cv-2 .left {
+  background:#0f172a;
+  color:#e5e7eb;
+  padding: 22px;
+}
+.cv-2 .left .avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  background:#1f2937;
+  margin-bottom: 14px;
+  overflow:hidden;
+}
+.cv-2 .left h2 { color:#fff; }
+.cv-2 .left .item { margin: 10px 0; }
+.cv-2 .right { padding: 22px; background:#fff; }
+.cv-2 .right h2 {
+  color:#0b1220;
+  border-bottom:1px solid #eef2f7;
+  padding-bottom:4px;
+  margin-bottom:6px;
+}
+
+/* === Макет 3 (свой стиль) === */
+.cv-3 {
+  border-top: 8px solid #007BFF;
+  padding: 30px;
+  background: #fafafa;
+}
+
+/* === Макет 4 (свой стиль) === */
+.cv-4 {
+  border-left: 6px solid #B40000;
+  padding: 20px;
+  font-family: Georgia, serif;
+}
+
+/* === Макет 5 (свой стиль) === */
+.cv-5 {
+  background: #fffbe6;
+  padding: 25px;
+  border: 1px dashed #f2c94e;
+}
+
+/* === Макет 6 (свой стиль) === */
+.cv-6 {
+  font-family: "Courier New", monospace;
+  background: #f9f9f9;
+  padding: 20px;
+}
+
+/* === Макет 7 (свой стиль) === */
+.cv-7 {
+  background: #ffffff;
+  border: 2px solid #139F00;
+  padding: 25px;
+}
+
+/* === Макет 8 (свой стиль) === */
+.cv-8 {
+  background: #f4f0ff;
+  border-left: 10px solid #9500A3;
+  padding: 30px;
+}

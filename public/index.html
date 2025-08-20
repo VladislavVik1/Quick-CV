@@ -4,180 +4,189 @@
   <meta charset="UTF-8" />
   <title>Создание резюме</title>
   <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
 <header class="up-header-wrapper">
-    <div class="up-header">
-          <img src="../public/styles/img_pages/QuickCV_logo.svg">
-          <div class="up-head-text">
-              <a href="./pages/First_page.html" class="regular-a">Home</a>
-              <a href="#" class="regular-a">Advantages</a>
-              <a href="./index.html" class="regular-a">Create CV</a>
-              <a href="#" class="regular-a">Subscribe</a>
-              <a href="#" class="regular-a">FAQ</a>
-          </div>
-          <a href="#" class="btn-login">Login</a>
-      </div>
+  <div class="up-header">
+    <img src="./styles/img_pages/QuickCV_logo.svg" alt="QuickCV">
+    <div class="up-head-text">
+      <a href="./pages/First_page.html" class="regular-a">Home</a>
+      <a href="#" class="regular-a">Advantages</a>
+      <a href="./index.html" class="regular-a">Create CV</a>
+      <a href="#" class="regular-a">Subscribe</a>
+      <a href="#" class="regular-a">FAQ</a>
+    </div>
+    <a href="#" class="btn-login">Login</a>
+  </div>
 </header>
 
-  
 <section id="cvForm" class="cv-container">
-  <form class="main-form">
-
+  <form class="main-form" autocomplete="off">
     <div class="left-form">
       <div class="readness-block">
         <p>Resume readiness</p>
         <span>0%</span>
-          <div class="progress-bar">
-            <div class="progress-fill"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%;"></div>
+        </div>
+      </div>
+
+      <div class="left-tabs">
+
+        <!-- Вкладка 1 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Your information</p>
+            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+
+          <div class="submenu">
+            <!-- Personal information -->
+            <button class="tab-button inner" type="button">
+              <p>Personal information</p>
+              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu">
+              <div class="submenu-content">
+                <input class="text-input" type="text" placeholder="Your first name" id="firstName">
+                <input class="text-input" type="text" placeholder="Your last name" id="lastName">
+                <input class="text-input" type="text" placeholder="Address">
+                <input class="text-input" type="email" placeholder="Email" id="email">
+
+                <div class="triple-row">
+                  <input class="text-input-row" type="text" placeholder="Day">
+                  <input class="text-input-row" type="text" placeholder="Month">
+                  <input class="text-input-row" type="text" placeholder="Years">
+                </div>
+
+                <div class="phone-input">
+                  <img src="./styles/img_pages/us.svg" alt="Country">
+                  <input class="text-input" type="tel" placeholder="+1 000 000 0000" id="phone">
+                </div>
+
+                <button class="row-button" type="button">
+                  <span>Add your photo</span>
+                  <img class="plus-icon" src="./styles/img_pages/+.svg" alt="+">
+                </button>
+
+                <button class="row-button center-plus" type="button">
+                  <span class="plus">+</span>
+                </button>
+              </div>
+            </div>
+            <div class="tab-bottom-rule"></div>
+
+            <!-- Professional information -->
+            <button class="tab-button inner" type="button">
+              <p>Professional information</p>
+              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu">
+              <div class="submenu-content">
+                <input class="text-input" type="text" placeholder="Speciality">
+                <input class="text-input" type="text" placeholder="Skills">
+                <input class="text-input" type="text" placeholder="Work experience">
+                <input class="text-input" type="text" placeholder="LinkedIn">
+                <input class="text-input" type="text" placeholder="Portfolio">
+                <input class="text-input" type="text" placeholder="Education">
+                <input class="text-input" type="text" placeholder="Place of previous work">
+
+                <button class="row-button center-plus" type="button">
+                  <span class="plus">+</span>
+                </button>
+              </div>
+            </div>
+            <div class="tab-bottom-rule"></div>
+
+            <button class="tab-button plus-tab inner" type="button" aria-label="Add section"><span>+</span></button>
           </div>
-      </div>
 
-<div class="left-tabs">
-
-<!-- Вкладка 1 -->
-<div class="tab-item">
-  <button class="tab-button" type="button">
-    <p>Your information</p>
-    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-  </button>
-
-  <div class="submenu">
-    <button class="tab-button inner" type="button">
-      <p>Personal information</p>
-      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-    </button>
-    <div class="submenu">
-      <div class="submenu-content">
-        <input class="text-input" type="text" placeholder="Your first name" id="firstName">
-        <input class="text-input" type="text" placeholder="Your last name" id="lastName">
-        <input class="text-input" type="text" placeholder="Address">
-        <input class="text-input" type="email" placeholder="Email" id="email">
-
-        <div class="triple-row">
-          <input class="text-input-row" type="text" placeholder="Day">
-          <input class="text-input-row" type="text" placeholder="Month">
-          <input class="text-input-row" type="text" placeholder="Years">
+          <div class="tab-bottom-rule"></div>
         </div>
 
-        <div class="phone-input">
-          <img src="./styles/img_pages/us.svg" alt="🇺🇸">
-          <input class="text-input" type="tel" placeholder="+1 000 000 0000" id="phone">
+        <!-- Вкладка 2 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Edit</p>
+            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+
+          <div class="submenu">
+            <div class="color-row">
+              <button class="color-btn" style="background:#8F8F8F" type="button" aria-label="Color #8F8F8F"></button>
+              <button class="color-btn" style="background:#616161" type="button" aria-label="Color #616161"></button>
+              <button class="color-btn" style="background:#99C0FF" type="button" aria-label="Color #99C0FF"></button>
+              <button class="color-btn" style="background:#B40000" type="button" aria-label="Color #B40000"></button>
+              <button class="color-btn" style="background:#139F00" type="button" aria-label="Color #139F00"></button>
+              <button class="color-btn" style="background:#F2C94E" type="button" aria-label="Color #F2C94E"></button>
+              <button class="color-btn" style="background:#9500A3" type="button" aria-label="Color #9500A3"></button>
+            </div>
+
+            <button class="tab-button inner" type="button">
+              Typeface
+              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu"></div>
+
+            <button class="tab-button inner" type="button">
+              Font
+              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+            </button>
+            <div class="submenu"></div>
+
+            <button class="tab-button inner no-arrow" type="button">Size</button>
+          </div>
         </div>
 
-        <button class="row-button" type="button">
-          <span>Add your photo</span>
-          <img class="plus-icon" src="./styles/img_pages/+.svg" alt="+">
-        </button>
+        <!-- Вкладка 3 -->
+        <div class="tab-item">
+          <button class="tab-button" type="button">
+            <p>Sample</p>
+            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+          </button>
+          <div class="submenu">
+            <div class="sample-grid">
+              <button class="sample-item" type="button" data-template="1">
+                <img src="./styles/img_pages/button_svg_1.png" alt="Sample 1">
+              </button>
+              <button class="sample-item" type="button" data-template="2">
+                <img src="./styles/img_pages/button_svg_2.png" alt="Sample 2">
+              </button>
+              <button class="sample-item" type="button" data-template="3">
+                <img src="./styles/img_pages/button_svg_3.svg" alt="Sample 3">
+              </button>
+              <button class="sample-item" type="button" data-template="4">
+                <img src="./styles/img_pages/button_svg_4.svg" alt="Sample 4">
+              </button>
+              <button class="sample-item" type="button" data-template="5">
+                <img src="./styles/img_pages/button_svg_5.svg" alt="Sample 5">
+              </button>
+              <button class="sample-item" type="button" data-template="6">
+                <img src="./styles/img_pages/button_svg_6.svg" alt="Sample 6">
+              </button>
+              <button class="sample-item" type="button" data-template="7">
+                <img src="./styles/img_pages/button_svg_7.svg" alt="Sample 7">
+              </button>
+              <button class="sample-item" type="button" data-template="8">
+                <img src="./styles/img_pages/button_svg_8.svg" alt="Sample 8">
+              </button>
+            </div>
+          </div>
+        </div>
 
-        <button class="row-button center-plus" type="button">
-          <span class="plus">+</span>
-        </button>
       </div>
-    </div>
-    <div class="tab-bottom-rule"></div>
 
-    <button class="tab-button inner" type="button">
-      <p>Professional information</p>
-      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-    </button>
-    <div class="submenu">
-      <div class="submenu-content">
-        <input class="text-input" type="text" placeholder="Spatiality">
-        <input class="text-input" type="text" placeholder="Skills">
-        <input class="text-input" type="text" placeholder="Robot experience">
-        <input class="text-input" type="text" placeholder="LinkedIn">
-        <input class="text-input" type="text" placeholder="Portfolio">
-        <input class="text-input" type="text" placeholder="Education">
-        <input class="text-input" type="text" placeholder="Place of previous work">
-
-        <button class="row-button center-plus" type="button">
-          <span class="plus">+</span>
-        </button>
-      </div>
-    </div>
-    <div class="tab-bottom-rule"></div>
-
-    <button class="tab-button plus-tab inner" type="button"><span>+</span></button>
-  </div>
-
-  <div class="tab-bottom-rule"></div>
-</div>
-
-
-<!-- Вкладка 2 -->
-<div class="tab-item">
-  <button class="tab-button" type="button">
-    <p>Edit</p>
-    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-  </button>
-
-  <div class="submenu">
-
-    <div class="color-row">
-      <button class="color-btn" style="background:#8F8F8F" type="button"></button>
-      <button class="color-btn" style="background:#616161" type="button"></button>
-      <button class="color-btn" style="background:#99C0FF" type="button"></button>
-      <button class="color-btn" style="background:#B40000" type="button"></button>
-      <button class="color-btn" style="background:#139F00" type="button"></button>
-      <button class="color-btn" style="background:#F2C94E" type="button"></button>
-      <button class="color-btn" style="background:#9500A3" type="button"></button>
+      <button class="save-cv-btn" type="button">Save CV</button>
     </div>
 
-    <button class="tab-button inner" type="button">
-      Typeface
-      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-    </button>
-    <div class="submenu"></div>
-
-    <button class="tab-button inner" type="button">
-      Font
-      <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-    </button>
-    <div class="submenu"></div>
-
-    <button class="tab-button inner no-arrow" type="button">Size</button>
-  </div>
-</div>
-
-<!-- Вкладка 3 -->
-<div class="tab-item">
-  <button class="tab-button" type="button">
-    <p>Sample</p>
-    <img src="../public/styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-  </button>
-
-  <div class="submenu">
-
-    <div class="sample-grid">
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_1.png" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_2.png" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_3.svg" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_4.svg" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_5.svg" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_6.svg" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_7.svg" alt=""></button>
-      <button class="sample-item" type="button"><img src="./styles/img_pages/button_svg_8.svg" alt=""></button>
-    </div>
-  </div>
-</div>
-
-</div>
-
-
-      <button class="save-cv-btn">Save CV</button>
-    </div>
-
-    <div class="right-form">
-      <img src="./styles/img_pages/cv-wright.png">
-      
-    </div>
-
+    <div class="right-form"></div>
   </form>
 </section>
 
-  <script src="./second_script.js"></script>
-  <script src="./script.js"></script>
+<script src="./second_script.js"></script>
+<script src="./script.js"></script>
+<script src="./scripts/template-preview.js" defer></script>
 </body>
-</html> 
+</html>

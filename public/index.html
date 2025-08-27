@@ -1,192 +1,384 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Создание резюме</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QuickCV – HTML</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+
 </head>
-<body>
-
-<header class="up-header-wrapper">
-  <div class="up-header">
-    <img src="./styles/img_pages/QuickCV_logo.svg" alt="QuickCV">
-    <div class="up-head-text">
-      <a href="./pages/First_page.html" class="regular-a">Home</a>
-      <a href="#" class="regular-a">Advantages</a>
-      <a href="./index.html" class="regular-a">Create CV</a>
-      <a href="#" class="regular-a">Subscribe</a>
-      <a href="#" class="regular-a">FAQ</a>
+<body class="min-h-screen bg-[#f7f8fa] text-[#0b1220]">
+  <!-- Header -->
+  <header class="w-full h-24 bg-[#1A3C74] text-white sticky top-0 z-[999] flex items-center">
+    <div class="max-w-6xl mx-auto w-full px-6 flex items-center gap-10">
+      <div class="flex items-center gap-3">
+        <div class="w-[134px] h-[50px] bg-white/10 rounded flex items-center justify-center font-semibold tracking-wide">
+          QuickCV
+        </div>
+      </div>
+      <nav class="hidden md:flex ml-auto items-center gap-10">
+        <a href="#" class="text-white/90 hover:font-bold text-lg transition-colors">Home</a>
+        <a href="#" class="text-white/90 hover:font-bold text-lg transition-colors">Advantages</a>
+        <a href="#" class="text-white/90 hover:font-bold text-lg transition-colors">Create CV</a>
+        <a href="#" class="text-white/90 hover:font-bold text-lg transition-colors">Subscribe</a>
+        <a href="#" class="text-white/90 hover:font-bold text-lg transition-colors">FAQ</a>
+        <a href="#" class="ml-6 inline-flex items-center justify-center w-[145px] h-[50px] border-2 border-white/90 rounded text-lg hover:bg-white/10 transition">Login</a>
+      </nav>
     </div>
-    <a href="#" class="btn-login">Login</a>
-  </div>
-</header>
+  </header>
 
-<section id="cvForm" class="cv-container">
-  <form class="main-form" autocomplete="off">
-    <div class="left-form">
-      <div class="readness-block">
-        <p>Resume readiness</p>
-        <span>0%</span>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width:0%;"></div>
+  <section class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[495px,1fr] gap-0">
+    <!-- Left form -->
+    <div class="bg-white h-full min-h-[900px] shadow-[10px_0_10px_rgba(0,0,0,0.05)] px-[100px] pt-[50px] pb-10">
+      <!-- Progress -->
+      <div class="mb-8 flex flex-col max-w-[350px]">
+        <p class="text-xl font-medium text-[#151515]">Resume readiness</p>
+        <span id="percentText" class="self-end text-[#151515]">0%</span>
+        <div class="w-[350px] h-2 bg-[#D9D9D9] rounded overflow-hidden">
+          <div id="percentBar" class="h-full bg-blue-600 transition-all" style="width:1%"></div>
         </div>
       </div>
 
-      <div class="left-tabs">
-
-        <!-- Вкладка 1 -->
-        <div class="tab-item">
-          <button class="tab-button" type="button">
-            <p>Your information</p>
-            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+      <div class="flex flex-col w-[350px]">
+        <!-- Tab: Your information -->
+        <div class="mb-4">
+          <button type="button" class="tab-btn open" data-target="#tab-info">
+            <span>Your information</span><span>▼</span>
           </button>
-
-          <div class="submenu">
-            <!-- Personal information -->
-            <button class="tab-button inner" type="button">
-              <p>Personal information</p>
-              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-            </button>
-            <div class="submenu">
-              <div class="submenu-content">
-                <input class="text-input" type="text" placeholder="Your first name" id="firstName">
-                <input class="text-input" type="text" placeholder="Your last name" id="lastName">
-                <input class="text-input" type="text" placeholder="Address">
-                <input class="text-input" type="email" placeholder="Email" id="email">
-
-                <div class="triple-row">
-                  <input class="text-input-row" type="text" placeholder="Day">
-                  <input class="text-input-row" type="text" placeholder="Month">
-                  <input class="text-input-row" type="text" placeholder="Years">
+          <div id="tab-info" class="overflow-hidden" style="max-height:1200px">
+            <!-- Personal -->
+            <div class="mt-4">
+              <button type="button" class="tab-btn open" data-target="#panel-personal"><span>Personal information</span><span>▼</span></button>
+              <div id="panel-personal" class="overflow-hidden" style="max-height:1000px">
+                <div class="grid gap-4 py-3">
+                  <input id="firstName" class="text-input" placeholder="Your first name" />
+                  <input id="lastName" class="text-input" placeholder="Your last name" />
+                  <input id="address" class="text-input" placeholder="Address" />
+                  <input id="email" class="text-input" placeholder="Email" />
+                  <div class="flex gap-5">
+                    <input class="text-input-row" placeholder="Day" />
+                    <input class="text-input-row" placeholder="Month" />
+                    <input class="text-input-row" placeholder="Years" />
+                  </div>
+                  <div class="phone-input">
+                    <div class="absolute top-[31px] left-5 text-sm">🇺🇸</div>
+                    <input id="phone" class="text-input pl-14" placeholder="+1 000 000 0000" />
+                  </div>
+                  <button type="button" class="row-button"><span>Add your photo</span><span class="text-xl">+</span></button>
+                  <button type="button" class="row-button center-plus"><span class="text-2xl">+</span></button>
                 </div>
-
-                <div class="phone-input">
-                  <img src="./styles/img_pages/us.svg" alt="Country">
-                  <input class="text-input" type="tel" placeholder="+1 000 000 0000" id="phone">
-                </div>
-
-                <button class="row-button" type="button">
-                  <span>Add your photo</span>
-                  <img class="plus-icon" src="./styles/img_pages/+.svg" alt="+">
-                </button>
-
-                <button class="row-button center-plus" type="button">
-                  <span class="plus">+</span>
-                </button>
               </div>
             </div>
-            <div class="tab-bottom-rule"></div>
 
-            <!-- Professional information -->
-            <button class="tab-button inner" type="button">
-              <p>Professional information</p>
-              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-            </button>
-            <div class="submenu">
-              <div class="submenu-content">
-                <input class="text-input" type="text" placeholder="Speciality">
-                <input class="text-input" type="text" placeholder="Skills">
-                <input class="text-input" type="text" placeholder="Work experience">
-                <input class="text-input" type="text" placeholder="LinkedIn">
-                <input class="text-input" type="text" placeholder="Portfolio">
-                <input class="text-input" type="text" placeholder="Education">
-                <input class="text-input" type="text" placeholder="Place of previous work">
-
-                <button class="row-button center-plus" type="button">
-                  <span class="plus">+</span>
-                </button>
+            <!-- Professional -->
+            <div class="mt-4">
+              <button type="button" class="tab-btn" data-target="#panel-prof"><span>Professional information</span><span>▼</span></button>
+              <div id="panel-prof" class="overflow-hidden" style="max-height:0px">
+                <div class="grid gap-4 py-3">
+                  <input id="role" class="text-input" placeholder="Speciality" />
+                  <input id="skills" class="text-input" placeholder="Skills (comma separated)" />
+                  <input id="experience" class="text-input" placeholder="Work experience" />
+                  <input class="text-input" placeholder="LinkedIn" />
+                  <input class="text-input" placeholder="Portfolio" />
+                  <input id="education" class="text-input" placeholder="Education" />
+                  <input class="text-input" placeholder="Place of previous work" />
+                  <button type="button" class="row-button center-plus"><span class="text-2xl">+</span></button>
+                </div>
               </div>
             </div>
-            <div class="tab-bottom-rule"></div>
 
-            <button class="tab-button plus-tab inner" type="button" aria-label="Add section"><span>+</span></button>
+            <div class="h-[3px] bg-black/35 rounded-full mt-4"></div>
+            <button type="button" class="tab-btn plus-tab mt-4"><span class="text-2xl">+</span></button>
           </div>
-
-          <div class="tab-bottom-rule"></div>
         </div>
 
-        <!-- Вкладка 2 -->
-        <div class="tab-item">
-          <button class="tab-button" type="button">
-            <p>Edit</p>
-            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
+        <!-- Tab: Edit -->
+        <div class="mb-4">
+          <button type="button" class="tab-btn" data-target="#tab-edit">
+            <span>Edit</span><span>▼</span>
           </button>
-
-          <div class="submenu">
-            <div class="color-row">
-              <button class="color-btn" style="background:#8F8F8F" type="button" aria-label="Color #8F8F8F"></button>
-              <button class="color-btn" style="background:#616161" type="button" aria-label="Color #616161"></button>
-              <button class="color-btn" style="background:#99C0FF" type="button" aria-label="Color #99C0FF"></button>
-              <button class="color-btn" style="background:#B40000" type="button" aria-label="Color #B40000"></button>
-              <button class="color-btn" style="background:#139F00" type="button" aria-label="Color #139F00"></button>
-              <button class="color-btn" style="background:#F2C94E" type="button" aria-label="Color #F2C94E"></button>
-              <button class="color-btn" style="background:#9500A3" type="button" aria-label="Color #9500A3"></button>
+          <div id="tab-edit" class="overflow-hidden" style="max-height:0px">
+            <div class="color-row" id="colorRow">
+              <!-- палитра -->
+              <button type="button" class="color-btn is-active" style="background:#1A3C74" data-color="#1A3C74" aria-label="Color #1A3C74"></button>
+              <button type="button" class="color-btn" style="background:#8F8F8F" data-color="#8F8F8F" aria-label="Color #8F8F8F"></button>
+              <button type="button" class="color-btn" style="background:#616161" data-color="#616161" aria-label="Color #616161"></button>
+              <button type="button" class="color-btn" style="background:#99C0FF" data-color="#99C0FF" aria-label="Color #99C0FF"></button>
+              <button type="button" class="color-btn" style="background:#B40000" data-color="#B40000" aria-label="Color #B40000"></button>
+              <button type="button" class="color-btn" style="background:#139F00" data-color="#139F00" aria-label="Color #139F00"></button>
+              <button type="button" class="color-btn" style="background:#F2C94E" data-color="#F2C94E" aria-label="Color #F2C94E"></button>
+              <button type="button" class="color-btn" style="background:#9500A3" data-color="#9500A3" aria-label="Color #9500A3"></button>
             </div>
-
-            <button class="tab-button inner" type="button">
-              Typeface
-              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-            </button>
-            <div class="submenu"></div>
-
-            <button class="tab-button inner" type="button">
-              Font
-              <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-            </button>
-            <div class="submenu"></div>
-
-            <button class="tab-button inner no-arrow" type="button">Size</button>
-          </div>
-        </div>
-
-        <!-- Вкладка 3 -->
-        <div class="tab-item">
-          <button class="tab-button" type="button">
-            <p>Sample</p>
-            <img src="./styles/img_pages/arrowtab.svg" class="arrow-icon" alt="▼">
-          </button>
-          <div class="submenu">
-            <div class="sample-grid">
-              <button class="sample-item" type="button" data-template="1">
-                <img src="./styles/img_pages/button_svg_1.png" alt="Sample 1">
-              </button>
-              <button class="sample-item" type="button" data-template="2">
-                <img src="./styles/img_pages/button_svg_2.png" alt="Sample 2">
-              </button>
-              <button class="sample-item" type="button" data-template="3">
-                <img src="./styles/img_pages/button_svg_3.svg" alt="Sample 3">
-              </button>
-              <button class="sample-item" type="button" data-template="4">
-                <img src="./styles/img_pages/button_svg_4.svg" alt="Sample 4">
-              </button>
-              <button class="sample-item" type="button" data-template="5">
-                <img src="./styles/img_pages/button_svg_5.svg" alt="Sample 5">
-              </button>
-              <button class="sample-item" type="button" data-template="6">
-                <img src="./styles/img_pages/button_svg_6.svg" alt="Sample 6">
-              </button>
-              <button class="sample-item" type="button" data-template="7">
-                <img src="./styles/img_pages/button_svg_7.svg" alt="Sample 7">
-              </button>
-              <button class="sample-item" type="button" data-template="8">
-                <img src="./styles/img_pages/button_svg_8.svg" alt="Sample 8">
-              </button>
+            <div class="mt-4 space-y-3">
+              <button class="tab-btn"><span>Typeface</span><span>▼</span></button>
+              <div class="submenu"></div>
+              <button class="tab-btn"><span>Font</span><span>▼</span></button>
+              <div class="submenu"></div>
+              <button class="tab-btn"><span>Size</span></button>
             </div>
           </div>
         </div>
 
+        <!-- Tab: Sample -->
+        <div class="mb-4">
+          <button type="button" class="tab-btn" data-target="#tab-sample">
+            <span>Sample</span><span>▼</span>
+          </button>
+          <div id="tab-sample" class="overflow-hidden" style="max-height:0px">
+            <div class="sample-grid" id="sampleGrid">
+              <!-- 8 превью (нажмите) -->
+              <button type="button" class="sample-item" data-template="1"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 1</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 2</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 3</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 4</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 5</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 6</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 7</div></button>
+              <button type="button" class="sample-item" data-template="2"><div class="w-full h-full grid place-items-center text-xs text-gray-500">Template 8</div></button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <button class="save-cv-btn" type="button">Save CV</button>
+      <button type="button" class="save-cv-btn" onclick="alert('Saved (demo)')">Save CV</button>
     </div>
 
-    <div class="right-form"></div>
-  </form>
-</section>
+    <!-- Right preview -->
+    <div class="flex items-start justify-center pr-[315px] pt-[200px]">
+      <div class="preview-host">
+        <div class="preview-paper">
+          <!-- CV1 -->
+          <div id="cv1" class="cv-1">
+            <div class="cv1-header">
+              <div class="cv1-photo avatar rounded-md">
+                <div class="w-full h-full grid place-items-center text-sm text-gray-500">Photo</div>
+              </div>
+              <div>
+                <h1 id="cv1-name"></h1>
+                <div id="cv1-role" class="cv1-role"></div>
+                <div class="mt-3 text-sm text-gray-600 grid grid-cols-2 gap-y-1">
+                  <div id="cv1-email"></div>
+                  <div id="cv1-phone"></div>
+                  <div id="cv1-address"></div>
+                </div>
+              </div>
+            </div>
 
-<script src="./second_script.js"></script>
-<script src="./script.js"></script>
-<script src="./scripts/template-preview.js" defer></script>
+            <div class="cv1-grid">
+              <section class="cv1-card">
+                <h2>Summary</h2>
+                <ul class="cv1-dots" id="cv1-summary">
+                  <li>Experienced professional with strengths in skills.</li>
+                </ul>
+              </section>
+              <section class="cv1-card">
+                <h2>Skills</h2>
+                <ul class="cv1-dots" id="cv1-skills"></ul>
+              </section>
+              <section class="cv1-card">
+                <h2>Experience</h2>
+                <ul class="cv1-dots"><li id="cv1-exp"></li></ul>
+              </section>
+              <section class="cv1-card">
+                <h2>Education</h2>
+                <ul class="cv1-dots"><li id="cv1-edu"></li></ul>
+              </section>
+            </div>
+
+            <div class="footer"><span>quickcv.app</span></div>
+          </div>
+
+          <!-- CV2 -->
+          <div id="cv2" class="cv-2" style="display:none">
+            <aside class="cv2-side">
+              <div class="cv2-photo avatar rounded-md">
+                <div class="w-full h-full grid place-items-center text-sm text-gray-500">Photo</div>
+              </div>
+              <h3>Contacts</h3>
+              <ul class="cv2-list">
+                <li id="cv2-email"></li>
+                <li id="cv2-phone"></li>
+                <li id="cv2-address"></li>
+              </ul>
+
+              <h3>Skills</h3>
+              <div id="cv2-skills"></div>
+            </aside>
+
+            <header class="cv2-header">
+              <h1 id="cv2-name" class="cv2-name"></h1>
+              <div id="cv2-role" class="cv2-title"></div>
+              <div class="cv2-meta">
+                <a href="#" target="_blank">Portfolio</a>
+                <a href="#" target="_blank">LinkedIn</a>
+              </div>
+            </header>
+
+            <main class="cv2-content">
+              <section class="cv2-section">
+                <h2>Experience</h2>
+                <ul class="cv2-dots"><li id="cv2-exp"></li></ul>
+              </section>
+              <section class="cv2-section">
+                <h2>Education</h2>
+                <ul class="cv2-dots"><li id="cv2-edu"></li></ul>
+              </section>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // --- State ---
+    const state = {
+      accent: '#1A3C74',
+      template: 1,
+      data: {
+        firstName: '',
+        lastName: '',
+        address: '',
+        email: '',
+        phone: '',
+        role: '',
+        skills: '',
+        experience: '',
+        education: ''
+      }
+    };
+
+    // --- Helpers ---
+    function $(sel){ return document.querySelector(sel); }
+    function $all(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+    function getData(){
+      state.data.firstName = $('#firstName').value.trim();
+      state.data.lastName  = $('#lastName').value.trim();
+      state.data.address   = $('#address').value.trim();
+      state.data.email     = $('#email').value.trim();
+      state.data.phone     = $('#phone').value.trim();
+      state.data.role      = $('#role').value.trim();
+      state.data.skills    = $('#skills').value.trim();
+      state.data.experience= $('#experience').value.trim();
+      state.data.education = $('#education').value.trim();
+      return state.data;
+    }
+
+    function calcPercent(d){
+      const fields = [d.firstName,d.lastName,d.email,d.phone,d.address,d.role,d.skills,d.experience,d.education];
+      const filled = fields.filter(v => v && v.trim().length>0).length;
+      return Math.round(filled / fields.length * 100);
+    }
+
+    function setAccent(color){
+      state.accent = color;
+      document.documentElement.style.setProperty('--accent', color);
+      // активная точка палитры
+      $all('.color-btn').forEach(b => b.classList.toggle('is-active', b.dataset.color===color));
+    }
+
+    function renderSkillsUL(listEl, chips=false){
+      const skills = (state.data.skills || 'React, TypeScript, UX').split(/\s*,\s*/).filter(Boolean);
+      listEl.innerHTML = '';
+      if (chips){
+        skills.forEach(s=>{
+          const span = document.createElement('span');
+          span.className = 'cv2-chip';
+          span.textContent = s;
+          listEl.appendChild(span);
+        });
+      } else {
+        skills.forEach(s=>{
+          const li = document.createElement('li');
+          li.textContent = s;
+          listEl.appendChild(li);
+        });
+      }
+    }
+
+    function updatePreview(){
+      const d = getData();
+
+      // CV1
+      $('#cv1-name').textContent = (d.firstName||'First') + ' ' + (d.lastName||'Last');
+      $('#cv1-role').textContent = d.role || 'Your role';
+      $('#cv1-email').textContent = d.email || 'email@example.com';
+      $('#cv1-phone').textContent = d.phone || '+1 000 000 0000';
+      $('#cv1-address').textContent = d.address || 'Address';
+      $('#cv1-exp').textContent = d.experience || 'Company • Role • 2022–Now';
+      $('#cv1-edu').textContent = d.education || 'University • Degree';
+      renderSkillsUL($('#cv1-skills'));
+
+      // Summary – простая строка с подстановкой
+      $('#cv1-summary').innerHTML = '<li>Experienced professional with strengths in ' + (d.skills||'skills') + '.</li>';
+
+      // CV2
+      $('#cv2-name').textContent = (d.firstName||'First') + ' ' + (d.lastName||'Last');
+      $('#cv2-role').textContent = d.role || 'Your role';
+      $('#cv2-email').textContent = d.email || 'email@example.com';
+      $('#cv2-phone').textContent = d.phone || '+1 000 000 0000';
+      $('#cv2-address').textContent = d.address || 'Address';
+      $('#cv2-exp').textContent = d.experience || 'Company • Role • 2022–Now';
+      $('#cv2-edu').textContent = d.education || 'University • Degree';
+      renderSkillsUL($('#cv2-skills'), true);
+
+      // Процент готовности
+      const pct = calcPercent(d);
+      $('#percentText').textContent = pct + '%';
+      $('#percentBar').style.width = Math.max(1, pct) + '%';
+    }
+
+    function setTemplate(n){
+      state.template = n;
+      $('#cv1').style.display = n===1 ? 'block' : 'none';
+      $('#cv2').style.display = n===2 ? 'grid' : 'none';
+    }
+
+    // --- Events ---
+    // Раскрывающиеся панели
+    $all('.tab-btn[data-target]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const targetSel = btn.getAttribute('data-target');
+        if(!targetSel) return;
+        const panel = document.querySelector(targetSel);
+        const isOpen = btn.classList.contains('open');
+        // простая анимация высоты
+        if (isOpen){
+          panel.style.maxHeight = '0px';
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+        btn.classList.toggle('open', !isOpen);
+      });
+    });
+
+    // Поля формы -> обновление превью/процента
+    ['#firstName','#lastName','#address','#email','#phone','#role','#skills','#experience','#education'].forEach(sel=>{
+      const el = $(sel);
+      el.addEventListener('input', updatePreview);
+    });
+
+    // Палитра цветов
+    $('#colorRow').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.color-btn');
+      if(!btn) return;
+      setAccent(btn.dataset.color);
+    });
+
+    // Выбор шаблона
+    $('#sampleGrid').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.sample-item');
+      if(!btn) return;
+      const n = Number(btn.dataset.template)||1;
+      setTemplate(n);
+    });
+
+    // Инициализация
+    setAccent(state.accent);
+    setTemplate(1);
+    updatePreview();
+  </script>
 </body>
 </html>

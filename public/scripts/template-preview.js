@@ -18,9 +18,7 @@
     if (!tb) {
       tb = document.createElement('div');
       tb.className = 'preview-toolbar';
-      tb.innerHTML = `
-        <button type="button" data-act="print">Print to PDF</button>
-      `;
+      tb.innerHTML = `<button type="button" data-act="print">Print to PDF</button>`;
       host.appendChild(tb);
     }
     let paper = host.querySelector('.preview-paper');
@@ -44,9 +42,8 @@
       .preview-paper{width:794px;height:1123px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,.06);overflow:hidden}
       .cv{font:14px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;color:#0b1220;height:100%;display:flex;flex-direction:column}
       .cv h1,.cv h2,.cv h3{margin:0 0 6px}
-      .cv small{color:#6b7280}.cv .muted{color:#6b7280}
+      .cv small,.cv .muted{color:#6b7280}
       .cv ul{margin:6px 0 0 18px}.cv li{margin:4px 0}
-      /* здесь только базовые; конкретные .cv-1..cv-8 — в твоём style.css */
       @media print{
         body{background:#fff}
         .up-header-wrapper,.left-form,.preview-toolbar{display:none!important}
@@ -80,7 +77,7 @@
     };
   }
 
-  // ===== 2) Структура макетов (семейства) =====
+  // ===== 2) Семейства макетов =====
   function viewClassic(d) {
     const fullName = `${d.firstName || 'Name'} ${d.lastName || 'Surname'}`.trim();
     const skillsLi = (d.skills?.length ? d.skills : ['JavaScript','HTML','CSS']).map(s=>`<li>${s}</li>`).join('');
@@ -114,36 +111,59 @@
     `;
   }
 
+  // === Sidebar (CV-2) — разметка соответствует CSS: .cv2-side / .cv2-header / .cv2-content
   function viewSidebar(d) {
     const fullName = `${d.firstName || 'Name'} ${d.lastName || 'Surname'}`.trim();
-    const skillsLi = (d.skills?.length ? d.skills : ['Teamwork','Problem Solving']).map(s=>`<li>${s}</li>`).join('');
-    const expLi = (d.experience?.length ? d.experience : ['Company — Role — Years']).map(s=>`<li>${s}</li>`).join('');
-    const eduLi = (d.education?.length ? d.education : ['University — Program — Years']).map(s=>`<li>${s}</li>`).join('');
+    const skills = d.skills?.length ? d.skills : ['HTML/CSS','JavaScript ES6','React'];
+    const exp    = d.experience?.length ? d.experience : ['Company — Role — Years'];
+    const edu    = d.education?.length ? d.education : ['University — Program — Years'];
+
     return `
-      <div style="display:grid;grid-template-columns:250px 1fr;height:100%;">
-        <div class="left" style="background:#0f172a;color:#e5e7eb;padding:22px;">
-          <div class="avatar" style="width:120px;height:120px;border-radius:14px;background:#1f2937;margin-bottom:14px;overflow:hidden;">
-            ${d.photo ? `<img src="${d.photo}" alt="" style="width:100%;height:100%;object-fit:cover">` : ''}
-          </div>
-          <h2 style="color:#fff;margin:0 0 6px">${fullName}</h2>
-          <div class="item"><small>Position</small><br>${d.position || '—'}</div>
-          <div class="item"><small>Contacts</small><br>${[d.city, d.phone, d.email, d.github].filter(Boolean).join('<br>')}</div>
-          <div class="item"><small>Skills</small><ul>${skillsLi}</ul></div>
+      <aside class="cv2-side">
+        <div class="cv2-photo">${d.photo ? `<img src="${d.photo}" alt="">` : ''}</div>
+
+        <h3>Education</h3>
+        <ul class="cv2-list">
+          ${edu.map(e => `<li>${e}</li>`).join('')}
+        </ul>
+
+        <h3>Skills</h3>
+        <div>${skills.map(s => `<span class="cv2-chip">${s}</span>`).join('')}</div>
+
+        <h3>Links</h3>
+        <ul class="cv2-list">
+          ${d.github ? `<li><a href="${d.github}" target="_blank" rel="noreferrer">GitHub</a></li>` : ''}
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </aside>
+
+      <header class="cv2-header">
+        <h1 class="cv2-name">${fullName}</h1>
+        <div class="cv2-title">${d.position || 'Your Position'}</div>
+        <div class="cv2-meta">
+          ${d.city ? `<span>${d.city}</span>` : ''}
+          ${d.email ? `<a href="mailto:${d.email}">${d.email}</a>` : ''}
+          ${d.phone ? `<a href="tel:${d.phone}">${d.phone}</a>` : ''}
         </div>
-        <div class="right" style="padding:22px;background:#fff;">
-          <h2>About</h2>
-          <p class="muted">${d.about || 'Short summary goes here.'}</p>
-          <h2>Experience</h2>
-          <ul>${expLi}</ul>
-          <h2>Education</h2>
-          <ul>${eduLi}</ul>
-        </div>
-      </div>
+      </header>
+
+      <main class="cv2-content">
+        <section class="cv2-section">
+          <h2>Profile</h2>
+          <p>${d.about || 'Short summary goes here.'}</p>
+        </section>
+
+        <section class="cv2-section">
+          <h2>Employment History</h2>
+          <ul class="cv2-dots">
+            ${exp.map(e => `<li>${e}</li>`).join('')}
+          </ul>
+        </section>
+      </main>
     `;
   }
 
   function viewModern(d) {
-    // упрощённый современный вид; ты стилизуешь через .cv-<n> в style.css
     const fullName = `${d.firstName || 'Name'} ${d.lastName || 'Surname'}`.trim();
     const bullets = (arr, fallback) => (arr?.length ? arr : fallback).map(s=>`<li>${s}</li>`).join('');
     return `
@@ -195,25 +215,29 @@
   };
 
   // ===== 3) Нормализация ключа из data-template =====
-  // Принимает: "3" → {family:'classic', num:'3'}
-  //            "classic1" → {family:'classic', num:'1'}
-  //            "sidebar2" → {family:'sidebar', num:'2'}
-  //            "modern7"  → {family:'modern',  num:'7'}
+  // 1→classic, 2→sidebar, остальные можно переназначить по желанию
   function parseTemplateKey(raw) {
+    const NUM_TO_FAMILY = {
+      '1': 'classic',
+      '2': 'sidebar',
+      '3': 'classic',
+      '4': 'classic',
+      '5': 'minimal',
+      '6': 'modern',
+      '7': 'classic',
+      '8': 'modern'
+    };
+
     if (!raw) return { family: 'classic', num: '1' };
-    // чисто число?
+
     if (/^\d+$/.test(raw)) {
-      return { family: 'classic', num: String(raw) };
+      const num = String(raw);
+      return { family: NUM_TO_FAMILY[num] || 'classic', num };
     }
-    // family + number
+
     const m = String(raw).match(/^(classic|sidebar|modern|minimal)\s*([0-9]+)?$/i);
-    if (m) {
-      return {
-        family: m[1].toLowerCase(),
-        num: m[2] || '1'
-      };
-    }
-    // дефолт
+    if (m) return { family: m[1].toLowerCase(), num: m[2] || '1' };
+
     return { family: 'classic', num: '1' };
   }
 
@@ -227,15 +251,12 @@
     const data = getData();
     const inner = renderFamily(data);
 
-    paper.innerHTML = `
-      <div class="cv cv-${key.num}">
-        ${inner}
-      </div>
-    `;
+    // ВАЖНО: один wrapper .cv.cv-<num>, без вложенного .cv-2/.cv-1 внутри
+    paper.innerHTML = `<div class="cv cv-${key.num}">${inner}</div>`;
     current = key;
   }
 
-  // ===== 5) Слушатели: клик по образцам + лайв-обновления =====
+  // ===== 5) Слушатели =====
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.sample-item');
     if (!btn) return;
@@ -254,4 +275,7 @@
     const act = e.target.closest('button')?.dataset.act;
     if (act === 'print') window.print();
   });
+
+  // Рендер по умолчанию
+  render('1');
 })();

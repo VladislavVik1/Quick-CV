@@ -766,3 +766,12 @@ body{margin:0; background:var(--bg); color:var(--ink);}
 
 /* (опционально) чуть приглушить заголовок-должность под любым акцентом */
 .preview-paper .cv-2 .cv2-title{ color: #f0f4ff; }
+
+@media print {
+  body * { visibility: hidden !important; }
+  .preview-paper, .preview-paper * { visibility: visible !important; }
+  .preview-paper {
+    position: fixed; inset: 0; margin: 0;
+    box-shadow: none; border: none;
+  }
+}
